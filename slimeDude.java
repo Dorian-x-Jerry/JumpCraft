@@ -4,12 +4,12 @@ import java.awt.event.*;
 
 @SuppressWarnings("serial")
 public class slimeDude extends JPanel implements Runnable, KeyListener {
-	
+
 	Thread thread;
 	int FPS = 60;
 	int screenWidth = 600;
 	int screenHeight = 600;
-	
+
 	Rectangle player = new Rectangle(0, 0, 30, 30);
 	Rectangle[] walls = new Rectangle[5];
 	boolean jump, left, right;
@@ -19,20 +19,20 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 	double yVel = 0;
 	double gravity = 0.8;
 	boolean airborne = true;
-	
-	
+
+
 	public slimeDude() {
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
 		setVisible(true);
-		
+
 		jump = false;
 		left = false;
 		right = false;
-		
+
 		thread = new Thread(this);
 		thread.start();
 	}
-	
+
 	public void initialize() {
 		//setups before the game starts running
 		walls[0] = new Rectangle(200, 200, 60, 60);
@@ -41,7 +41,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 		walls[3] = new Rectangle(60, 60, 15, 15);
 		walls[4] = new Rectangle(250, 350, 150, 200);
 	}
-	
+
 	@Override
 	public void run() {
 		while(true) {
@@ -52,7 +52,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 			keepInBound();
 			
 			this.repaint();
-			
+
 			try {
 				Thread.sleep(1000/FPS);
 			} catch(Exception e) {
@@ -60,7 +60,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 			}
 		}
 	}
-	
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -101,7 +101,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 		else if (key == KeyEvent.VK_W)
 			jump = false;
 	}
-	
+
 	void move() {
 		if (left)
 			xVel = -speed;
@@ -109,7 +109,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 			xVel = speed;
 		else
 			xVel = 0;
-		
+
 		if (airborne)
 			yVel -= gravity;
 		else
@@ -117,17 +117,17 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 				airborne = true;
 				yVel = jumpSpeed;
 			}
-		
+
 		player.x += xVel;
 		player.y -= yVel;
 	}
-	
+
 	void keepInBound() {
 		if (player.x < 0)
 			player.x = 0;
 		else if (player.x > screenWidth - player.width)
 			player.x = screenWidth - player.width;
-		
+
 		if (player.y < 0) {
 			player.y = 0;
 			yVel = 0;
@@ -138,7 +138,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 			yVel = 0;
 		}
 	}
-	
+
 	void checkCollision(Rectangle wall) {
 		//check if player touches wall
 		if (player.intersects(wall)) {
@@ -152,34 +152,31 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 			double right2 = wall.getX() + wall.getWidth();
 			double top2 = wall.getY();
 			double bottom2 = wall.getY() + wall.getHeight();
-			
-			
+
+
 			if (right1 > left2 && left1 < left2 && right1 - left2 < bottom1 - top2 && right1 - left2 < bottom2 - top1) {
 				player.x = wall.x - player.width;
 				airborne = true;
 				//yVel-=0.1;
-				System.out.println("left");
+				//System.out.println("left");
 			}
-	        else if (left1 < right2 && right1 > right2 && right2 - left1 < bottom1 - top2 && right2 - left1 < bottom2 - top1) {
-	        	player.x = wall.x + wall.width;
-	        	airborne = true;
-	        	//yVel-=0.1;
-	        	System.out.println("right");
-	        }
-	        else if (bottom1 > top2 && top1 < top2) {
-	        	player.y = wall.y - player.height;
+			else if (left1 < right2 && right1 > right2 && right2 - left1 < bottom1 - top2 && right2 - left1 < bottom2 - top1) {
+				player.x = wall.x + wall.width;
+				airborne = true;
+				//yVel-=0.1;
+				//System.out.println("right");
+			}
+			else if (bottom1 > top2 && top1 < top2) {
+				player.y = wall.y - player.height;
 				airborne = false;
-				System.out.println("top");
-	        }
-	        else if (top1 < bottom2 && bottom1 > bottom2) {
-	        	player.y = wall.y + wall.height;
-	        	airborne = true;
-	        	yVel/=3;
-	        	System.out.println("bottom");
-	        }
-		}
-		else {
-			airborne=true;
+				//System.out.println("top");
+			}
+			else if (top1 < bottom2 && bottom1 > bottom2) {
+				player.y = wall.y + wall.height;
+				airborne = true;
+				yVel/=3;
+				//System.out.println("bottom");
+			}
 		}
 	}
 	public static void main(String[] args) {
