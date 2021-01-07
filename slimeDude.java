@@ -7,12 +7,12 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 
 	Thread thread;
 	int FPS = 60;
-	int screenWidth = 600;
-	int screenHeight = 600;
+	int screenWidth = 1600;
+	int screenHeight = 900;
 
 	Rectangle player = new Rectangle(0, 0, 30, 30);
 	Rectangle[] walls = new Rectangle[5];
-	boolean jump, left, right;
+	boolean jump, left, right, win;
 	double speed = 3.5;			//double variables for better accuracy/simulation of gravity
 	double jumpSpeed = 20;		//using int for these type of variables is a bad idea
 	double xVel = 0;
@@ -28,6 +28,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 		jump = false;
 		left = false;
 		right = false;
+		win=false;
 
 		thread = new Thread(this);
 		thread.start();
@@ -87,8 +88,11 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 			right = true;
 			left = false;
 		}
-		else if(key == KeyEvent.VK_W)
+		else if(key == KeyEvent.VK_SPACE)
 			jump = true;
+		else if(key == KeyEvent.VK_E)
+			win=true;ad
+			winner();
 	}
 
 	@Override
@@ -98,7 +102,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 			left = false;
 		else if (key == KeyEvent.VK_D)
 			right = false;
-		else if (key == KeyEvent.VK_W)
+		else if (key == KeyEvent.VK_SPACE)
 			jump = false;
 	}
 
@@ -177,6 +181,16 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 				yVel/=3;
 				//System.out.println("bottom");
 			}
+		}
+	}
+	
+	public void winner () {
+		if (player.x>=1500 && win==true) {
+			System.out.println("you win");
+			win=false;
+		}
+		else {
+			win=false;
 		}
 	}
 	public static void main(String[] args) {
