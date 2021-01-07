@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 @SuppressWarnings("serial")
 public class slimeDude extends JPanel implements Runnable, KeyListener {
@@ -12,6 +13,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 
 	Rectangle player = new Rectangle(0, 0, 30, 30);
 	Rectangle[] walls = new Rectangle[5];
+	Image [] backgrounds= new Image [3];
 	boolean jump, left, right, win;
 	double speed = 3.5;			//double variables for better accuracy/simulation of gravity
 	double jumpSpeed = 20;		//using int for these type of variables is a bad idea
@@ -41,6 +43,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 		walls[2] = new Rectangle(450, 100, 80, 35);
 		walls[3] = new Rectangle(60, 60, 15, 15);
 		walls[4] = new Rectangle(250, 350, 150, 200);
+		backgrounds[0]=Toolkit.getDefaultToolkit ().getImage ("background1.gif");
+
 	}
 
 	@Override
@@ -65,8 +69,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Color.GREEN);
-		g2.fillRect(0, 0, screenWidth, screenHeight);
+		g.drawImage(backgrounds[0], 0, 0, screenWidth, screenHeight, this);
 		g2.setColor(Color.GRAY);
 		for (int i = 0; i < walls.length; i++)
 			g2.fill(walls[i]);
@@ -91,7 +94,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 		else if(key == KeyEvent.VK_SPACE)
 			jump = true;
 		else if(key == KeyEvent.VK_E)
-			win=true;ad
+			win=true;
 			winner();
 	}
 
