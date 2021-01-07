@@ -198,8 +198,9 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 	
 	public void winner () {
 		if (player.x >= 600 && win == true) {
-			System.out.println("you win");
 			level++;
+			player.y=800;
+			player.x=20;
 			win = false;
 		}
 		else
