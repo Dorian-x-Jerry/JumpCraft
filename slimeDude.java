@@ -8,18 +8,19 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 
 	Thread thread;
 	int FPS = 60;
-	int screenWidth = 1600;
+	int screenWidth = 700;
 	int screenHeight = 900;
 
-	Rectangle player = new Rectangle(0, 0, 30, 30);
+	Rectangle player = new Rectangle(0, 0, 30, 30);;
 	Rectangle[] walls = new Rectangle[5];
-	Image [] backgrounds= new Image [3];
+	Image[] backgrounds = new Image[3];
 	boolean jump, left, right, win;
-	double speed = 3.5;			//double variables for better accuracy/simulation of gravity
-	double jumpSpeed = 20;		//using int for these type of variables is a bad idea
+	double speed = 5;			//double variables for better accuracy/simulation of gravity
+	double jumpSpeed = 15;		//using int for these type of variables is a bad idea
 	double xVel = 0;
 	double yVel = 0;
 	double gravity = 0.8;
+	int level = 1;
 	boolean airborne = true;
 
 
@@ -30,26 +31,15 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 		jump = false;
 		left = false;
 		right = false;
-		win=false;
+		win = false;
 
 		thread = new Thread(this);
 		thread.start();
 	}
 
-	public void initialize() {
-		//setups before the game starts running
-		walls[0] = new Rectangle(200, 200, 60, 60);
-		walls[1] = new Rectangle(300, 40, 40, 100);
-		walls[2] = new Rectangle(450, 100, 80, 35);
-		walls[3] = new Rectangle(60, 60, 15, 15);
-		walls[4] = new Rectangle(250, 350, 150, 200);
-		backgrounds[0]=Toolkit.getDefaultToolkit ().getImage ("background1.gif");
-
-	}
-
 	@Override
 	public void run() {
-		while(true) {
+		while (level < 3) {
 			initialize();
 			move();
 			for (int i = 0; i < walls.length; i++)
@@ -64,6 +54,25 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void initialize() {
+		//setups before the game starts running
+		if (level == 1) {
+			walls[0] = new Rectangle(200, 200, 60, 60);
+			walls[1] = new Rectangle(300, 40, 40, 100);
+			walls[2] = new Rectangle(450, 100, 80, 35);
+			walls[3] = new Rectangle(60, 60, 15, 15);
+			walls[4] = new Rectangle(250, 350, 150, 200);
+			backgrounds[0] = Toolkit.getDefaultToolkit().getImage("background1.gif");
+		}
+		else if (level == 2) {
+			walls[0] = new Rectangle(200, 200, 100, 100);
+		}
+		else {
+			walls[0] = new Rectangle(200, 200, 200, 200);
+		}
+
 	}
 
 	public void paintComponent(Graphics g) {
@@ -94,7 +103,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 		else if(key == KeyEvent.VK_SPACE)
 			jump = true;
 		else if(key == KeyEvent.VK_E)
-			win=true;
+			win = true;
 			winner();
 	}
 
@@ -188,14 +197,19 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 	}
 	
 	public void winner () {
-		if (player.x>=1500 && win==true) {
-			System.out.println("you win");
-			win=false;
+		if (player.x >= 600 && win == true) {
+			if (level == 3)
+				System.out.println("you win the game!!!");
+			else {
+				System.out.println("you win");
+				level++;
+			}
+			win = false;
 		}
-		else {
-			win=false;
-		}
+		else
+			win = false;
 	}
+	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame ("Example");
 		slimeDude myPanel = new slimeDude ();
