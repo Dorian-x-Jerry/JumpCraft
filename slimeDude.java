@@ -39,7 +39,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 
 	@Override
 	public void run() {
-		while (level < 3) {
+		while (level < 4) {
 			initialize();
 			move();
 			for (int i = 0; i < walls.length; i++)
@@ -198,12 +198,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 	
 	public void winner () {
 		if (player.x >= 600 && win == true) {
-			if (level == 3)
-				System.out.println("you win the game!!!");
-			else {
-				System.out.println("you win");
-				level++;
-			}
+			System.out.println("you win");
+			level++;
 			win = false;
 		}
 		else
