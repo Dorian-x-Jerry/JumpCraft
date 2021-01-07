@@ -13,7 +13,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 
 	Rectangle player = new Rectangle(0, 0, 30, 30);;
 	Rectangle[] walls = new Rectangle[5];
-	Image[] backgrounds = new Image[3];
+	Image[] backgrounds = new Image[5];
 	boolean jump, left, right, win;
 	double speed = 5;			//double variables for better accuracy/simulation of gravity
 	double jumpSpeed = 15;		//using int for these type of variables is a bad idea
@@ -54,6 +54,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 				e.printStackTrace();
 			}
 		}
+		
 	}
 	
 	public void initialize() {
@@ -64,7 +65,11 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 			walls[2] = new Rectangle(450, 100, 80, 35);
 			walls[3] = new Rectangle(60, 60, 15, 15);
 			walls[4] = new Rectangle(250, 350, 150, 200);
-			backgrounds[0] = Toolkit.getDefaultToolkit().getImage("background1.gif");
+			
+			for (int i=0;i<backgrounds.length;i++) {//gets all the backgrounds
+				backgrounds[i] = Toolkit.getDefaultToolkit().getImage("background"+i+".gif");
+			}
+			
 		}
 		else if (level == 2) {
 			walls[0] = new Rectangle(200, 200, 100, 100);
@@ -78,7 +83,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		g.drawImage(backgrounds[0], 0, 0, screenWidth, screenHeight, this);
+		g.drawImage(backgrounds[level], 0, 0, screenWidth, screenHeight, this);
 		g2.setColor(Color.GRAY);
 		for (int i = 0; i < walls.length; i++)
 			g2.fill(walls[i]);
@@ -202,6 +207,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener {
 			player.y=800;
 			player.x=20;
 			win = false;
+			airborne=true;
+			
 		}
 		else
 			win = false;
