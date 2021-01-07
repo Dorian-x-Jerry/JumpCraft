@@ -7,3 +7,5 @@ Dorian jan 5 11:18 pm. tweaked gravity—collision with the top of walls will re
 Dorian jan 6 12:02 am. fixed bug. collision physics should be all good now.
 
 Dorian jan 7 12:04 am. Added winner() function and changed jump key to space. When you goto the very right of the screen. press E and it will check if you win. If not, it will print nothing. If you win, it will print ("you win")
+
+Doiran jan 7 12:34 am. Added a background. Download the uploaded image and put it outside the src folder. Run the code and it should work.
