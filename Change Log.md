@@ -15,3 +15,5 @@ Jerry Jan 7 6:25am. Created 3 separate levels under initialize method, added int
 Dorian Jan 7 1:28 pm. level changes & reseting position
 
 Dorian Jan 10 12:11am. fixed collision, make the levels runable. For some reason, it needs to continously print "" to run. will fix later.
+
+Jerry Jan 10 10:39am. made stylistic changes to keep consistency, moved mouse methods to top
