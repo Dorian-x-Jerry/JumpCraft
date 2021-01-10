@@ -13,6 +13,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	Rectangle player = new Rectangle(0, 0, 30, 30);
 	Rectangle[] walls = new Rectangle[5];
 	Image[] backgrounds = new Image[5];
+	Image playerIcon;
 	boolean jump, left, right, win;
 	double speed = 5;
 	double jumpSpeed = 15;
@@ -25,8 +26,6 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	int mouseclickreleasey = 0;
 	int level = 0;
 	boolean airborne = true;
-
-
 
 	public slimeDude() {
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -96,6 +95,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			//System.out.println("got img");
 			backgrounds[i] = Toolkit.getDefaultToolkit().getImage("background" + i + ".gif");
 		//backgrounds[0]= Toolkit.getDefaultToolkit().getImage("background"+1+".gif");
+		playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon.gif");
 		if (level == 1) {
 			walls[0] = new Rectangle(200, 750, 50, 100);
 			walls[1] = new Rectangle(300, 40, 40, 100);
@@ -110,7 +110,6 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		else
 			for (int e = 0; e < walls.length; e++)
 				walls[e]= new Rectangle(0, 0, 0, 0);
-
 	}
 
 	public void paintComponent(Graphics g) {
@@ -123,6 +122,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 				g2.fill(walls[i]);
 			g2.setColor(Color.RED);
 			g2.fill(player);
+			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 		}
 	}
 
