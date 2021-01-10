@@ -13,3 +13,5 @@ Doiran jan 7 12:34 am. Added a background. Download the uploaded image and put i
 Jerry Jan 7 6:25am. Created 3 separate levels under initialize method, added int level variable to track level number, set run method to stop when level reaches 4. To do: reset player location to bottom left at new level, create methods for title screen, win screen after winning level 3
 
 Dorian Jan 7 1:28 pm. level changes & reseting position
+
+Dorian Jan 10 12:11am. fixed collision, make the levels runable. For some reason, it needs to continously print "" to run. will fix later.
