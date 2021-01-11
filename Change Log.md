@@ -19,3 +19,5 @@ Dorian Jan 10 12:11am. fixed collision, make the levels runable. For some reason
 Jerry Jan 10 10:39am. made stylistic changes to keep consistency, moved mouse methods to top
 
 Jerry Jan 10 11:09am. Added makeshift playericon attached to player rectangle
+
+Jerry Jan 11 4:56pm. Made level 1, added door pic, changed wincheck to top right at the door
