@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.sql.Time;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("serial")
 public class slimeDude extends JPanel implements Runnable, KeyListener, MouseListener {
@@ -68,7 +70,12 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		initialize();
 		while (level < 5) {
 			if (level == 0) {
-				System.out.println("");
+				try {
+					Thread.sleep(1000/FPS);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if (mouseclickx > 25 && mouseclickx < 335 && mouseclicky > 632 && mouseclicky < 693
 				&& mouseclickreleasex > 25 && mouseclickreleasex < 335 && mouseclickreleasey > 632 && mouseclickreleasey < 693)
 					level++; 
