@@ -14,6 +14,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	int screenHeight = 900;
 	Rectangle player = new Rectangle(0, 0, 30, 30);
 	Rectangle[] walls = new Rectangle[5];
+	//Polygon[]ramps = new Polygon[1];
 	Image[] backgrounds = new Image[5];
 	Image playerIcon;
 	boolean jump, left, right, win;
@@ -56,7 +57,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	public void mouseReleased(MouseEvent e) {
 		mouseclickreleasex = e.getX();
 		mouseclickreleasey = e.getY();
-		System.out.println("release" + mouseclickreleasex + " " + mouseclickreleasey);
+		//System.out.println("release" + mouseclickreleasex + " " + mouseclickreleasey);
 	}
 
 	@Override
@@ -64,7 +65,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 
 	@Override
 	public void mouseExited(MouseEvent e) {}
-	
+
 	@Override
 	public void run() {
 		initialize();
@@ -77,15 +78,17 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 					e.printStackTrace();
 				}
 				if (mouseclickx > 25 && mouseclickx < 335 && mouseclicky > 632 && mouseclicky < 693
-				&& mouseclickreleasex > 25 && mouseclickreleasex < 335 && mouseclickreleasey > 632 && mouseclickreleasey < 693)
+						&& mouseclickreleasex > 25 && mouseclickreleasex < 335 && mouseclickreleasey > 632 && mouseclickreleasey < 693) {
 					level++; 
-					//System.out.println("hi");
+				}
 			}
 			else {
 				initialize();
 				move();
 				for (int i = 0; i < walls.length; i++)
 					checkCollision(walls[i]);
+//				for (int i = 0; i < ramps.length; i++)
+//					checkSlide(ramps[i]);
 				keepInBound();
 				this.repaint();
 				try {
@@ -103,7 +106,11 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			backgrounds[i] = Toolkit.getDefaultToolkit().getImage("background" + i + ".gif");
 		//backgrounds[0]= Toolkit.getDefaultToolkit().getImage("background"+1+".gif");
 		playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon.gif");
+		
+		int []x= {330,630,630};
+		int []y= {900,900,600};
 		if (level == 1) {
+			//ramps[0] = new Polygon(x,y,3 );
 			walls[0] = new Rectangle(200, 750, 50, 100);
 			walls[1] = new Rectangle(300, 40, 40, 100);
 			walls[2] = new Rectangle(450, 100, 80, 35);
@@ -127,6 +134,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		if (level >= 1) {
 			for (int i = 0; i < walls.length; i++)
 				g2.fill(walls[i]);
+//			for (int i = 0; i < ramps.length; i++)
+//				g2.fill(ramps[i]);
 			g2.setColor(Color.RED);
 			g2.fill(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
@@ -240,6 +249,13 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			}
 		}
 	}
+	void checkSlide(Polygon ramps) {
+		double right1 = player.getX() + player.getWidth();
+		if(ramps.intersects(player.x, player.y, player.width, player.height)) {
+			player.x=(900-player.y)+(330-player.width-30);
+		}
+	}
+
 
 	public void winner () {
 		if (player.x >= 600 && win == true) {
