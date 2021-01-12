@@ -13,17 +13,17 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	int screenWidth = 700;
 	int screenHeight = 900;
 	Rectangle player = new Rectangle(0, 870, 30, 30);
-	Rectangle[] walls = new Rectangle[18];
+	Rectangle[] walls = new Rectangle[21];
 	//Polygon[]ramps = new Polygon[1];
 	Image[] backgrounds = new Image[5];
 	Image[] buttons = new Image[5];
 	Image playerIcon, door;
 	boolean jump, left, right, win;
 	double speed = 5;
-	double jumpSpeed = 18;
+	double jumpSpeed = 15;
 	double xVel = 0;
 	double yVel = 0;
-	double gravity = 0.5;
+	double gravity = 0.8;
 	int mouseclickx = 0;
 	int mouseclicky = 0;
 	int mouseclickreleasex = 0;
@@ -150,9 +150,33 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[15] = new Rectangle(350, 170, 100, 15);
 			walls[16] = new Rectangle(575, 160, 100, 15);
 			walls[17] = new Rectangle(550, 75, 150, 15);
+			walls[18] = new Rectangle(617, 775, 42, 125);
+			walls[19] = new Rectangle(533, 825, 42, 75);
+			walls[20] = new Rectangle(449, 875, 42, 25);
 		}
-		else if (level == 2)
-			walls[0] = new Rectangle(200, 200, 100, 100);
+		else if (level == 2) {
+			walls[0] = new Rectangle(320, 750, 60, 150);
+			walls[1] = new Rectangle(320, 580, 60, 140);
+			walls[2] = new Rectangle(250, 670, 200, 15);
+			walls[3] = new Rectangle(600, 750, 60, 120);
+			walls[4] = new Rectangle(50, 670, 50, 15);
+			walls[5] = new Rectangle(50, 520, 650, 15);
+			walls[6] = new Rectangle(320, 440, 60, 80);
+			walls[7] = new Rectangle(600, 370, 100, 15);
+			walls[8] = new Rectangle(340, 330, 20, 80);
+			walls[9] = new Rectangle(260, 200, 180, 15);
+			walls[10] = new Rectangle(550, 220, 20, 80);
+			walls[11] = new Rectangle(150, 220, 20, 80);
+			walls[12] = new Rectangle(150, 75, 550, 15);
+			walls[13] = new Rectangle(0, 210, 0, 15);
+			walls[14] = new Rectangle(130, 120, 0, 15);
+			walls[15] = new Rectangle(350, 170, 0, 15);
+			walls[16] = new Rectangle(575, 160, 0, 15);
+			walls[17] = new Rectangle(550, 75, 0, 15);
+			walls[18] = new Rectangle(550, 75, 0, 15);
+			walls[19] = new Rectangle(533, 825, 0, 75);
+			walls[20] = new Rectangle(449, 875, 0, 25);
+		}
 		else if (level == 3)
 			walls[0] = new Rectangle(200, 200, 200, 200);
 		else
@@ -309,7 +333,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 
 
 	public void winner () {
-		if (player.x >= 600 && player.x <= 700 && player.y >= 0 && player.y <= 100 && win == true) {
+		if (player.x >= 590 && player.x <= 630 && player.y >= 6 && player.y <= 46 && win == true) {
 			level++;
 			player.y = 900 - player.height;
 			player.x = 0;
