@@ -6,7 +6,7 @@ import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("serial")
-public class slimeDude extends JPanel implements Runnable, KeyListener, MouseListener {
+public class slimeDude extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener {
 
 	Thread thread;
 	int FPS = 60;
@@ -16,6 +16,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	Rectangle[] walls = new Rectangle[18];
 	//Polygon[]ramps = new Polygon[1];
 	Image[] backgrounds = new Image[5];
+	Image[] buttons = new Image[5];
 	Image playerIcon, door;
 	boolean jump, left, right, win;
 	double speed = 5;
@@ -27,6 +28,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	int mouseclicky = 0;
 	int mouseclickreleasex = 0;
 	int mouseclickreleasey = 0;
+	int mousehoverx=0;
+	int mousehovery=0;
 	int level = 0;
 	boolean airborne = true;
 
@@ -39,8 +42,23 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		right = false;
 		win = false;
 		addMouseListener(this);
+		addMouseMotionListener(this);
 		thread = new Thread(this);
 		thread.start();
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		mousehoverx=e.getX();
+		mousehovery=e.getY();
+		//System.out.println(mousehoverx+" "+mousehovery);
 	}
 
 	@Override
@@ -61,10 +79,11 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {}
-
+	public void mouseEntered(MouseEvent e) {
+	}
 	@Override
 	public void mouseExited(MouseEvent e) {}
+	
 
 	@Override
 	public void run() {
@@ -77,8 +96,9 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if (mouseclickx > 25 && mouseclickx < 335 && mouseclicky > 632 && mouseclicky < 693
-						&& mouseclickreleasex > 25 && mouseclickreleasex < 335 && mouseclickreleasey > 632 && mouseclickreleasey < 693) {
+				this.repaint();
+				if (mouseclickx > 30 && mouseclickx < 330 && mouseclicky > 530 && mouseclicky < 630
+						&& mouseclickreleasex > 30 && mouseclickreleasex < 330 && mouseclickreleasey > 530 && mouseclickreleasey < 630) {
 					level++; 
 				}
 			}
@@ -87,8 +107,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 				move();
 				for (int i = 0; i < walls.length; i++)
 					checkCollision(walls[i]);
-//				for (int i = 0; i < ramps.length; i++)
-//					checkSlide(ramps[i]);
+				//				for (int i = 0; i < ramps.length; i++)
+				//					checkSlide(ramps[i]);
 				keepInBound();
 				this.repaint();
 				try {
@@ -102,12 +122,12 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 
 	public void initialize() {
 		for (int i = 0; i < backgrounds.length; i++)//gets all the backgrounds
-			//System.out.println("got img");
 			backgrounds[i] = Toolkit.getDefaultToolkit().getImage("background" + i + ".gif");
-		//backgrounds[0]= Toolkit.getDefaultToolkit().getImage("background"+1+".gif");
+		for (int i = 0; i < buttons.length; i++)//gets all the backgrounds
+			buttons[i] = Toolkit.getDefaultToolkit().getImage("but" + i + ".gif");
 		playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon.gif");
 		door = Toolkit.getDefaultToolkit().getImage("door.gif");
-		
+
 		int []x= {330,630,630};
 		int []y= {900,900,600};
 		if (level == 1) {
@@ -144,12 +164,28 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(backgrounds[level], 0, 0, screenWidth, screenHeight, this);
+		if (level==0) {
+			g.drawImage(buttons[0], 30, 530, 300, 100, this);
+			g.drawImage(buttons[2], 370, 530, 300, 100, this);
+			if (mousehoverx>=30 && mousehoverx<=330 && mousehovery>=530 && mousehovery<=630) {
+				g.drawImage(buttons[2], 370, 530, 300, 100, this);
+				g.drawImage(buttons[1], 30, 530, 300, 100, this);
+			}
+			else if (mousehoverx>=370 && mousehoverx<=670 && mousehovery>=530 && mousehovery<=630) {
+				g.drawImage(buttons[0], 30, 530, 300, 100, this);
+				g.drawImage(buttons[3], 370, 530, 300, 100, this);
+			}
+			else {
+				g.drawImage(buttons[0], 30, 530, 300, 100, this);
+				g.drawImage(buttons[2], 370, 530, 300, 100, this);
+			}
+		}
 		g2.setColor(Color.GRAY);
 		if (level >= 1) {
 			for (int i = 0; i < walls.length; i++)
 				g2.fill(walls[i]);
-//			for (int i = 0; i < ramps.length; i++)
-//				g2.fill(ramps[i]);
+			//			for (int i = 0; i < ramps.length; i++)
+			//				g2.fill(ramps[i]);
 			g2.drawImage(door, 590, 6, 70, 70, this);
 			g2.fill(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
