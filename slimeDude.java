@@ -20,10 +20,10 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	Image playerIcon, door;
 	boolean jump, left, right, win;
 	double speed = 5;
-	double jumpSpeed = 15;
+	double jumpSpeed = 18;
 	double xVel = 0;
 	double yVel = 0;
-	double gravity = 0.8;
+	double gravity = 0.5;
 	int mouseclickx = 0;
 	int mouseclicky = 0;
 	int mouseclickreleasex = 0;
@@ -208,9 +208,10 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		}
 		else if (key == KeyEvent.VK_SPACE)
 			jump = true;
-		else if (key == KeyEvent.VK_E)
-			win = true;
-		winner();
+		else if (key == KeyEvent.VK_E) {
+			win=true;
+			winner();
+		}
 	}
 
 	@Override
@@ -308,7 +309,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 
 
 	public void winner () {
-		if (player.x >= 590 && player.x <= 630 && player.y >= 6 && player.y <= 36 && win == true) {
+		if (player.x >= 600 && player.x <= 700 && player.y >= 0 && player.y <= 100 && win == true) {
 			level++;
 			player.y = 900 - player.height;
 			player.x = 0;
