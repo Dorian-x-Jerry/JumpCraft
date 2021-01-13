@@ -159,7 +159,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[1] = new Rectangle(320, 580, 60, 140);
 			walls[2] = new Rectangle(250, 670, 200, 15);
 			walls[3] = new Rectangle(600, 750, 60, 120);
-			walls[4] = new Rectangle(50, 670, 50, 15);
+			walls[4] = new Rectangle(50, 670, 70, 15);
 			walls[5] = new Rectangle(50, 520, 650, 15);
 			walls[6] = new Rectangle(320, 440, 60, 80);
 			walls[7] = new Rectangle(600, 370, 100, 15);
@@ -177,8 +177,29 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[19] = new Rectangle(533, 825, 0, 75);
 			walls[20] = new Rectangle(449, 875, 0, 25);
 		}
-		else if (level == 3)
-			walls[0] = new Rectangle(200, 200, 200, 200);
+		else if (level == 3) {
+			walls[0] = new Rectangle(0, 855, 550, 15);
+			walls[1] = new Rectangle(450, 210, 15, 655);
+			walls[2] = new Rectangle(450, 725, 120, 15);
+			walls[3] = new Rectangle(450, 595, 140, 15);
+			walls[4] = new Rectangle(450, 465, 160, 15);
+			walls[5] = new Rectangle(450, 335, 180, 15);
+			walls[6] = new Rectangle(450, 205, 200, 15);
+			walls[7] = new Rectangle(405, 75, 20, 765);
+			walls[8] = new Rectangle(320, 710, 20, 100);
+			walls[9] = new Rectangle(50, 650, 20, 100);
+			walls[10] = new Rectangle(170, 600, 20, 100);
+			walls[11] = new Rectangle(150, 220, 0, 80);
+			walls[12] = new Rectangle(150, 75, 0, 15);
+			walls[13] = new Rectangle(0, 210, 0, 15);
+			walls[14] = new Rectangle(130, 120, 0, 15);
+			walls[15] = new Rectangle(350, 170, 0, 15);
+			walls[16] = new Rectangle(575, 160, 0, 15);
+			walls[17] = new Rectangle(550, 75, 0, 15);
+			walls[18] = new Rectangle(550, 75, 0, 15);
+			walls[19] = new Rectangle(533, 825, 0, 75);
+			walls[20] = new Rectangle(449, 875, 0, 25);
+		}
 		else
 			for (int e = 0; e < walls.length; e++)
 				walls[e]= new Rectangle(0, 0, 0, 0);
@@ -233,7 +254,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		else if (key == KeyEvent.VK_SPACE)
 			jump = true;
 		else if (key == KeyEvent.VK_E) {
-			win=true;
+			win = true;
 			winner();
 		}
 	}
@@ -304,23 +325,23 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			if (right1 > left2 && left1 < left2 && right1 - left2 <= 5) {
 				player.x = wall.x - player.width;
 				airborne = true;
-				//System.out.println("left");
+				System.out.println("left");
 			}
 			else if (left1 < right2 && right1 > right2 && right2 - left1 <= 5) {
 				player.x = wall.x + wall.width;
 				airborne = true;
-				//System.out.println("right");
+				System.out.println("right");
 			}
 			else if (bottom1 > top2 && top1 < top2) {
 				player.y = wall.y - player.height;
 				airborne = false;
-				//System.out.println("top");
+				System.out.println("top");
 			}
 			else if (top1 < bottom2 && bottom1 > bottom2) {
 				player.y = wall.y + wall.height;
 				airborne = true;
 				yVel/=3;
-				//System.out.println("bottom");
+				System.out.println("bottom");
 			}
 		}
 	}
