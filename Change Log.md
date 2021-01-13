@@ -25,3 +25,5 @@ Jerry Jan 11 4:56pm. Made level 1, added door pic, changed wincheck to top right
 Dorian Jan 11 9:34pm. Made sliding stuff work, title screen, buttons.
 
 Jerry Jan 12 3:05pm. created level 2, added stuff to lvl1 so you can't get stuck, fixed door win condition
+
+Jerry Jan 13 2:02pm. started level 3, found collision bug when falling for long distances (go through platforms, register as bottom but not top collision)
