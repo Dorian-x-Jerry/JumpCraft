@@ -186,19 +186,19 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[5] = new Rectangle(450, 335, 180, 15);
 			walls[6] = new Rectangle(450, 205, 200, 15);
 			walls[7] = new Rectangle(405, 75, 20, 765);
-			walls[8] = new Rectangle(320, 710, 20, 100);
-			walls[9] = new Rectangle(50, 650, 20, 100);
-			walls[10] = new Rectangle(170, 600, 20, 100);
-			walls[11] = new Rectangle(150, 220, 0, 80);
-			walls[12] = new Rectangle(150, 75, 0, 15);
-			walls[13] = new Rectangle(0, 210, 0, 15);
-			walls[14] = new Rectangle(130, 120, 0, 15);
-			walls[15] = new Rectangle(350, 170, 0, 15);
-			walls[16] = new Rectangle(575, 160, 0, 15);
-			walls[17] = new Rectangle(550, 75, 0, 15);
-			walls[18] = new Rectangle(550, 75, 0, 15);
-			walls[19] = new Rectangle(533, 825, 0, 75);
-			walls[20] = new Rectangle(449, 875, 0, 25);
+			walls[8] = new Rectangle(320, 550, 20, 100);
+			walls[9] = new Rectangle(50, 500, 20, 100);
+			walls[10] = new Rectangle(170, 550, 20, 100);
+			walls[11] = new Rectangle(150, 220, 0, 0);
+			walls[12] = new Rectangle(150, 75, 0, 0);
+			walls[13] = new Rectangle(0, 210, 0, 0);
+			walls[14] = new Rectangle(130, 120, 0, 0);
+			walls[15] = new Rectangle(350, 170, 0, 0);
+			walls[16] = new Rectangle(575, 160, 0, 0);
+			walls[17] = new Rectangle(550, 75, 0, 0);
+			walls[18] = new Rectangle(550, 75, 0, 0);
+			walls[19] = new Rectangle(533, 825, 0, 0);
+			walls[20] = new Rectangle(449, 875, 0, 0);
 		}
 		else
 			for (int e = 0; e < walls.length; e++)
@@ -288,6 +288,9 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		if (player.x < 870)
 			airborne = true;
 
+		if (yVel < -29)
+			yVel = -29;
+		
 		player.x += xVel;
 		player.y -= yVel;
 	}
@@ -345,6 +348,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			}
 		}
 	}
+	
 	void checkSlide(Polygon ramps) {
 		double right1 = player.getX() + player.getWidth();
 		if (ramps.intersects(player.x, player.y, player.width, player.height)) {
