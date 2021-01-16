@@ -28,8 +28,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	int mouseclicky = 0;
 	int mouseclickreleasex = 0;
 	int mouseclickreleasey = 0;
-	int mousehoverx=0;
-	int mousehovery=0;
+	int mousehoverx = 0;
+	int mousehovery = 0;
 	int level = 0;
 	boolean airborne = true;
 
@@ -98,9 +98,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 				}
 				this.repaint();
 				if (mouseclickx > 30 && mouseclickx < 330 && mouseclicky > 530 && mouseclicky < 630
-						&& mouseclickreleasex > 30 && mouseclickreleasex < 330 && mouseclickreleasey > 530 && mouseclickreleasey < 630) {
+						&& mouseclickreleasex > 30 && mouseclickreleasex < 330 && mouseclickreleasey > 530 && mouseclickreleasey < 630)
 					level++; 
-				}
 			}
 			else {
 				initialize();
@@ -128,8 +127,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon.gif");
 		door = Toolkit.getDefaultToolkit().getImage("door.gif");
 
-		int []x= {330,630,630};
-		int []y= {900,900,600};
+		int [] x= {330, 630, 630};
+		int [] y= {900, 900, 600};
 		if (level == 1) {
 			//ramps[0] = new Polygon(x,y,3 );
 			walls[0] = new Rectangle(70, 780, 100, 15);
@@ -179,25 +178,25 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		}
 		else if (level == 3) {
 			walls[0] = new Rectangle(0, 855, 550, 15);
-			walls[1] = new Rectangle(450, 210, 15, 655);
+			walls[1] = new Rectangle(450, 220, 15, 645);
 			walls[2] = new Rectangle(450, 725, 120, 15);
 			walls[3] = new Rectangle(450, 595, 140, 15);
 			walls[4] = new Rectangle(450, 465, 160, 15);
 			walls[5] = new Rectangle(450, 335, 180, 15);
 			walls[6] = new Rectangle(450, 205, 200, 15);
-			walls[7] = new Rectangle(405, 75, 20, 765);
-			walls[8] = new Rectangle(320, 550, 20, 100);
-			walls[9] = new Rectangle(50, 500, 20, 100);
-			walls[10] = new Rectangle(170, 550, 20, 100);
-			walls[11] = new Rectangle(150, 220, 0, 0);
-			walls[12] = new Rectangle(150, 75, 0, 0);
-			walls[13] = new Rectangle(0, 210, 0, 0);
-			walls[14] = new Rectangle(130, 120, 0, 0);
-			walls[15] = new Rectangle(350, 170, 0, 0);
-			walls[16] = new Rectangle(575, 160, 0, 0);
-			walls[17] = new Rectangle(550, 75, 0, 0);
-			walls[18] = new Rectangle(550, 75, 0, 0);
-			walls[19] = new Rectangle(533, 825, 0, 0);
+			walls[7] = new Rectangle(405, 75, 15, 750);
+			walls[8] = new Rectangle(300, 700, 20, 100);
+			walls[9] = new Rectangle(50, 650, 20, 100);
+			walls[10] = new Rectangle(170, 600, 20, 100);
+			walls[11] = new Rectangle(320, 520, 20, 100);
+			walls[12] = new Rectangle(90, 470, 20, 100);
+			walls[13] = new Rectangle(200, 400, 20, 100);
+			walls[14] = new Rectangle(260, 270, 20, 100);
+			walls[15] = new Rectangle(40, 280, 20, 100);
+			walls[16] = new Rectangle(350, 160, 20, 100);
+			walls[17] = new Rectangle(150, 180, 20, 100);
+			walls[18] = new Rectangle(0, 75, 90, 15);
+			walls[19] = new Rectangle(128, 75, 999, 15);
 			walls[20] = new Rectangle(449, 875, 0, 0);
 		}
 		else
@@ -212,11 +211,11 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		if (level==0) {
 			g.drawImage(buttons[0], 30, 530, 300, 100, this);
 			g.drawImage(buttons[2], 370, 530, 300, 100, this);
-			if (mousehoverx>=30 && mousehoverx<=330 && mousehovery>=530 && mousehovery<=630) {
+			if (mousehoverx >= 30 && mousehoverx <= 330 && mousehovery >= 530 && mousehovery <= 630) {
 				g.drawImage(buttons[2], 370, 530, 300, 100, this);
 				g.drawImage(buttons[1], 30, 530, 300, 100, this);
 			}
-			else if (mousehoverx>=370 && mousehoverx<=670 && mousehovery>=530 && mousehovery<=630) {
+			else if (mousehoverx >= 370 && mousehoverx <= 670 && mousehovery >= 530 && mousehovery <= 630) {
 				g.drawImage(buttons[0], 30, 530, 300, 100, this);
 				g.drawImage(buttons[3], 370, 530, 300, 100, this);
 			}
@@ -328,23 +327,23 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			if (right1 > left2 && left1 < left2 && right1 - left2 <= 5) {
 				player.x = wall.x - player.width;
 				airborne = true;
-				System.out.println("left");
+//				System.out.println("left");
 			}
 			else if (left1 < right2 && right1 > right2 && right2 - left1 <= 5) {
 				player.x = wall.x + wall.width;
 				airborne = true;
-				System.out.println("right");
+//				System.out.println("right");
 			}
 			else if (bottom1 > top2 && top1 < top2) {
 				player.y = wall.y - player.height;
 				airborne = false;
-				System.out.println("top");
+//				System.out.println("top");
 			}
 			else if (top1 < bottom2 && bottom1 > bottom2) {
 				player.y = wall.y + wall.height;
 				airborne = true;
 				yVel/=3;
-				System.out.println("bottom");
+//				System.out.println("bottom");
 			}
 		}
 	}
