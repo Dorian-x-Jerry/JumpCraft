@@ -184,7 +184,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[4] = new Rectangle(450, 465, 160, 15);
 			walls[5] = new Rectangle(450, 335, 180, 15);
 			walls[6] = new Rectangle(450, 205, 200, 15);
-			walls[7] = new Rectangle(405, 75, 15, 750);
+			walls[7] = new Rectangle(405, 85, 15, 740);
 			walls[8] = new Rectangle(300, 700, 20, 100);
 			walls[9] = new Rectangle(50, 650, 20, 100);
 			walls[10] = new Rectangle(170, 600, 20, 100);
@@ -369,7 +369,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	}
 
 	public static void main(String[] args) {
-		JFrame frame = new JFrame ("Jump Dude");
+		JFrame frame = new JFrame ("Jumpcraft");
 		slimeDude myPanel = new slimeDude ();
 		frame.add(myPanel);
 		frame.addKeyListener(myPanel);
