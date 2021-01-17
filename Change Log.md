@@ -31,3 +31,5 @@ Jerry Jan 13 2:02pm. started level 3, found collision bug when falling for long 
 Jerry Jan 15 2:45pm. fixed falling through platforms at high speeds bug by capping max y velocity at -29
 
 Jerry Jan 16 12:15pm. finished creating level 3
+
+Jerry Jan 16 10:23pm. fixed minor platform bug, renamed window to "Jumpcraft"
