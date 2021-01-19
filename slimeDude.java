@@ -505,7 +505,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		}
 		else if (ramps.intersects(player.x, player.y, player.width, player.height)) {
 			yVel=-3;
-			player.x = (botleftcorny - player.y) + (botleftcornx - player.width - 32);
+			player.x = (botleftcorny - player.y) + (botleftcornx - player.width - 31);
 		}
 	}
 
@@ -536,7 +536,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		}
 		else if (ramps.intersects(player.x, player.y, player.width, player.height)) {
 			yVel=-3;
-			player.x = (hitbox.width-(botleftcorny - player.y))+(botleftcornx+32);
+			player.x = (hitbox.width-(botleftcorny - player.y))+(botleftcornx+31);
 		}
 	}
 
