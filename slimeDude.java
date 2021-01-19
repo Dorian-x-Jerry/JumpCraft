@@ -14,7 +14,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	int screenHeight = 900;
 	Rectangle player = new Rectangle(0, 870, 30, 30);
 	Rectangle[] walls = new Rectangle[21];
-	//Polygon[]ramps = new Polygon[1];
+	Polygon[] rightramps = new Polygon[4];
+	Polygon[] leftramps = new Polygon[5];
 	Image[] backgrounds = new Image[5];
 	Image[] buttons = new Image[5];
 	Image playerIcon, door;
@@ -33,6 +34,9 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	int level = 0;
 	boolean airborne = true;
 
+	//ramps
+
+
 	public slimeDude() {
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
 		setVisible(true);
@@ -46,11 +50,11 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		thread = new Thread(this);
 		thread.start();
 	}
-	
+
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -68,7 +72,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	public void mousePressed(MouseEvent e) {
 		mouseclickx = e.getX();
 		mouseclicky = e.getY();
-		//System.out.println("press" + mouseclickx + " " + mouseclicky);
+		System.out.println("press" + mouseclickx + " " + mouseclicky);
 	}
 
 	@Override
@@ -83,7 +87,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	}
 	@Override
 	public void mouseExited(MouseEvent e) {}
-	
+
 
 	@Override
 	public void run() {
@@ -101,13 +105,56 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 						&& mouseclickreleasex > 30 && mouseclickreleasex < 330 && mouseclickreleasey > 530 && mouseclickreleasey < 630)
 					level++; 
 			}
-			else {
+			else if (level==1){
 				initialize();
 				move();
 				for (int i = 0; i < walls.length; i++)
 					checkCollision(walls[i]);
-				//				for (int i = 0; i < ramps.length; i++)
-				//					checkSlide(ramps[i]);
+				keepInBound();
+				this.repaint();
+				try {
+					Thread.sleep(1000/FPS);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else if (level==2) {
+				initialize();
+				move();
+				for (int i = 0; i < walls.length; i++)
+					checkCollision(walls[i]);
+				for (int i = 0; i < leftramps.length; i++)
+					checkSliderleft(leftramps[i]);
+				for (int i = 0; i < rightramps.length; i++)
+					checkSliderright(rightramps[i]);
+				keepInBound();
+				this.repaint();
+				try {
+					Thread.sleep(1000/FPS);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else if (level==3) {
+				initialize();
+				move();
+				for (int i = 0; i < walls.length; i++)
+					checkCollision(walls[i]);
+				for (int i = 0; i < rightramps.length; i++)
+					checkSliderright(rightramps[i]);
+				keepInBound();
+				this.repaint();
+				try {
+					Thread.sleep(1000/FPS);
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else if (level==4){
+				initialize();
+				move();
+				for (int i = 0; i < walls.length; i++)
+					checkCollision(walls[i]);
 				keepInBound();
 				this.repaint();
 				try {
@@ -127,10 +174,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon.gif");
 		door = Toolkit.getDefaultToolkit().getImage("door.gif");
 
-		int [] x= {330, 630, 630};
-		int [] y= {900, 900, 600};
 		if (level == 1) {
-			//ramps[0] = new Polygon(x,y,3 );
 			walls[0] = new Rectangle(70, 780, 100, 15);
 			walls[1] = new Rectangle(180, 650, 100, 15);
 			walls[2] = new Rectangle(350, 550, 15, 400);
@@ -154,6 +198,44 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[20] = new Rectangle(449, 875, 42, 25);
 		}
 		else if (level == 2) {
+			int [] x1= {250, 250, 55};
+			int [] y1= {670, 865, 865};//195
+
+			int [] x2= {320, 320, 240};//80
+			int [] y2= {440, 520, 520};
+
+			int [] x3= {340, 340, 260};//80
+			int [] y3= {300, 380, 380};
+
+			int [] x4= {550, 550, 470};//80
+			int [] y4= {220, 300, 300};
+
+			int [] x5= {150, 150, 70};//80
+			int [] y5= {220, 300, 300};
+
+			int [] x6= {380, 380, 460};//80
+			int [] y6= {440, 520, 520};
+
+			int [] x7= {360, 360, 440};//80
+			int [] y7= {300, 380, 380};
+
+			int [] x8= {570, 570, 650};//80
+			int [] y8= {220, 300, 300};
+
+			int [] x9= {170, 170, 250};//80
+			int [] y9= {220, 300, 300};
+
+			leftramps[0] = new Polygon(x1,y1,3);
+			leftramps[1] = new Polygon(x2,y2,3);
+			leftramps[2] = new Polygon(x3,y3,3);
+			leftramps[3] = new Polygon(x4,y4,3);
+			leftramps[4] = new Polygon(x5,y5,3);
+
+			rightramps[0] = new Polygon(x6,y6,3);
+			rightramps[1] = new Polygon(x7,y7,3);
+			rightramps[2] = new Polygon(x8,y8,3);
+			rightramps[3] = new Polygon(x9,y9,3);
+
 			walls[0] = new Rectangle(320, 750, 60, 150);
 			walls[1] = new Rectangle(320, 580, 60, 140);
 			walls[2] = new Rectangle(250, 670, 200, 15);
@@ -162,7 +244,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[5] = new Rectangle(50, 520, 650, 15);
 			walls[6] = new Rectangle(320, 440, 60, 80);
 			walls[7] = new Rectangle(600, 370, 100, 15);
-			walls[8] = new Rectangle(340, 330, 20, 80);
+			walls[8] = new Rectangle(340, 300, 20, 80);
 			walls[9] = new Rectangle(260, 200, 180, 15);
 			walls[10] = new Rectangle(550, 220, 20, 80);
 			walls[11] = new Rectangle(150, 220, 20, 80);
@@ -177,6 +259,13 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[20] = new Rectangle(449, 875, 0, 25);
 		}
 		else if (level == 3) {
+			int [] x1= {0, 0, 75};
+			int [] y1= {0, 75, 75};//75
+			rightramps[0]=new Polygon (x1,y1,3);
+			rightramps[1]=new Polygon (x1,y1,0);
+			rightramps[2]=new Polygon (x1,y1,0);
+			rightramps[3]=new Polygon (x1,y1,0);
+
 			walls[0] = new Rectangle(0, 855, 550, 15);
 			walls[1] = new Rectangle(450, 220, 15, 645);
 			walls[2] = new Rectangle(450, 725, 120, 15);
@@ -199,10 +288,21 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[19] = new Rectangle(128, 75, 999, 15);
 			walls[20] = new Rectangle(449, 875, 0, 0);
 		}
-		else
+		else {
+			int [] x1= {0, 0, 75};
+			int [] y1= {0, 75, 75};//75
+
 			for (int e = 0; e < walls.length; e++)
 				walls[e]= new Rectangle(0, 0, 0, 0);
+			for (int e =0; e<rightramps.length;e++) {
+				rightramps[e]=new Polygon(x1,y1,0);
+			}
+			for (int e =0; e<leftramps.length;e++) {
+				leftramps[e]=new Polygon(x1,y1,0);
+			}
+		}
 	}
+
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -224,13 +324,43 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 				g.drawImage(buttons[2], 370, 530, 300, 100, this);
 			}
 		}
-		g2.setColor(Color.GRAY);
-		if (level >= 1) {
+		else if (level == 1) {
+			g2.setColor(Color.GRAY);
 			for (int i = 0; i < walls.length; i++)
 				g2.fill(walls[i]);
-			//			for (int i = 0; i < ramps.length; i++)
-			//				g2.fill(ramps[i]);
 			g2.drawImage(door, 590, 6, 70, 70, this);
+			g2.fill(player);
+			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
+		}
+		else if (level == 2) {
+			g2.setColor(Color.GRAY);
+			for (int i = 0; i < walls.length; i++)
+				g2.fill(walls[i]);
+			for (int i = 0; i < leftramps.length; i++)
+				g2.fill(leftramps[i]);
+			for (int i = 0; i < rightramps.length; i++)
+				g2.fill(rightramps[i]);
+			g2.drawImage(door, 590, 6, 70, 70, this);
+			g2.fill(player);
+			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
+		}
+		else if (level == 3) {
+			g2.setColor(Color.GRAY);
+			for (int i = 0; i < walls.length; i++)
+				g2.fill(walls[i]);
+			for (int i = 0; i < rightramps.length; i++)
+				g2.fill(rightramps[i]);
+			g2.drawImage(door, 590, 6, 70, 70, this);
+			g2.fill(player);
+			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
+		}
+		else if (level == 4) {
+			g2.setColor(Color.GRAY);
+			for (int i = 0; i < walls.length; i++)
+				g2.fill(walls[i]);
+			for (int i = 0; i < rightramps.length; i++)
+				g2.fill(rightramps[i]);
+//			g2.drawImage(door, 590, 6, 70, 70, this);
 			g2.fill(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 		}
@@ -289,7 +419,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 
 		if (yVel < -29)
 			yVel = -29;
-		
+
 		player.x += xVel;
 		player.y -= yVel;
 	}
@@ -327,31 +457,86 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			if (right1 > left2 && left1 < left2 && right1 - left2 <= 5) {
 				player.x = wall.x - player.width;
 				airborne = true;
-//				System.out.println("left");
+				//				System.out.println("left");
 			}
 			else if (left1 < right2 && right1 > right2 && right2 - left1 <= 5) {
 				player.x = wall.x + wall.width;
 				airborne = true;
-//				System.out.println("right");
+				//				System.out.println("right");
 			}
 			else if (bottom1 > top2 && top1 < top2) {
 				player.y = wall.y - player.height;
 				airborne = false;
-//				System.out.println("top");
+				//				System.out.println("top");
 			}
 			else if (top1 < bottom2 && bottom1 > bottom2) {
 				player.y = wall.y + wall.height;
 				airborne = true;
 				yVel/=3;
-//				System.out.println("bottom");
+				//				System.out.println("bottom");
 			}
 		}
 	}
-	
-	void checkSlide(Polygon ramps) {
+
+	void checkSliderleft (Polygon ramps) {
+		Rectangle hitbox=ramps.getBoundingBox();
+		int botleftcorny=(int) (hitbox.getY()+hitbox.height);
+		int botleftcornx=(int) hitbox.getX();
+
+		double left1 = player.getX();
 		double right1 = player.getX() + player.getWidth();
-		if (ramps.intersects(player.x, player.y, player.width, player.height)) {
-			player.x = (900 - player.y) + (330 - player.width - 30);
+		double top1 = player.getY();
+		double bottom1 = player.getY() + player.getHeight();
+		double left2 = hitbox.getX();
+		double right2 = hitbox.getX() + hitbox.getWidth();
+		double top2 = hitbox.getY();
+		double bottom2 = hitbox.getY() + hitbox.getHeight();
+
+		if (player.intersects(hitbox) && left1 < right2 && right1 > right2 && right2 - left1 <= 5) {
+			player.x = hitbox.x + hitbox.width;
+			airborne = true;
+			//				System.out.println("right");
+		}
+		else if (player.intersects(hitbox) && top1 < bottom2 && bottom1 > bottom2) {
+			player.y = hitbox.y + hitbox.height;
+			airborne = true;
+			yVel/=3;
+			//				System.out.println("bottom");
+		}
+		else if (ramps.intersects(player.x, player.y, player.width, player.height)) {
+			yVel=-3;
+			player.x = (botleftcorny - player.y) + (botleftcornx - player.width - 32);
+		}
+	}
+
+	void checkSliderright (Polygon ramps) {
+		Rectangle hitbox=ramps.getBoundingBox();
+		int botleftcorny=(int) (hitbox.getY()+hitbox.height);
+		int botleftcornx=(int) hitbox.getX();
+
+		double left1 = player.getX();
+		double right1 = player.getX() + player.getWidth();
+		double top1 = player.getY();
+		double bottom1 = player.getY() + player.getHeight();
+		double left2 = hitbox.getX();
+		double right2 = hitbox.getX() + hitbox.getWidth();
+		double top2 = hitbox.getY();
+		double bottom2 = hitbox.getY() + hitbox.getHeight();
+
+		if (player.intersects(hitbox) && right1 > left2 && left1 < left2 && right1 - left2 <= 5) {
+			player.x = hitbox.x + hitbox.width;
+			airborne = true;
+			//				System.out.println("left");
+		}
+		else if (player.intersects(hitbox) && top1 < bottom2 && bottom1 > bottom2) {
+			player.y = hitbox.y + hitbox.height;
+			airborne = true;
+			yVel/=3;
+			//				System.out.println("bottom");
+		}
+		else if (ramps.intersects(player.x, player.y, player.width, player.height)) {
+			yVel=-3;
+			player.x = (hitbox.width-(botleftcorny - player.y))+(botleftcornx+32);
 		}
 	}
 
