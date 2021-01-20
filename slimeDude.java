@@ -18,7 +18,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	Polygon[] leftramps = new Polygon[5];
 	Image[] backgrounds = new Image[5];
 	Image[] buttons = new Image[5];
-	Image playerIcon, door;
+	Image playerIcon, netherPortal, oakPlatform, oakFence, netherBrick, netherBrickSlab, netherBrickTall, netherBrickShort, netherBrickLong, netherBrickFence,
+	rampLeft, rampLeftSmall, rampRightSmall, endPortal, enderman, endermanSide, endermanLong, endermanSideLong, endermanRamp;
 	boolean jump, left, right, win;
 	double speed = 5;
 	double jumpSpeed = 15;
@@ -167,17 +168,34 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	}
 
 	public void initialize() {
-		for (int i = 0; i < backgrounds.length; i++)//gets all the backgrounds
+		for (int i = 0; i < backgrounds.length; i++)
 			backgrounds[i] = Toolkit.getDefaultToolkit().getImage("background" + i + ".gif");
-		for (int i = 0; i < buttons.length; i++)//gets all the backgrounds
+		for (int i = 0; i < buttons.length; i++)
 			buttons[i] = Toolkit.getDefaultToolkit().getImage("but" + i + ".gif");
 		playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon.gif");
-		door = Toolkit.getDefaultToolkit().getImage("door.gif");
-
+		oakPlatform = Toolkit.getDefaultToolkit().getImage("oak platform.gif");
+		oakFence = Toolkit.getDefaultToolkit().getImage("oak fence.gif");
+		netherPortal = Toolkit.getDefaultToolkit().getImage("nether portal.gif");
+		netherBrick = Toolkit.getDefaultToolkit().getImage("nether brick.gif");
+		netherBrickSlab = Toolkit.getDefaultToolkit().getImage("nether brick slab.gif");
+		netherBrickTall = Toolkit.getDefaultToolkit().getImage("nether brick platform tall.gif");
+		netherBrickShort = Toolkit.getDefaultToolkit().getImage("nether brick platform short.gif");
+		netherBrickLong = Toolkit.getDefaultToolkit().getImage("nether brick platform long.gif");
+		netherBrickFence = Toolkit.getDefaultToolkit().getImage("nether brick fence.gif");
+		rampLeft = Toolkit.getDefaultToolkit().getImage("ramp left.gif");
+		rampLeftSmall = Toolkit.getDefaultToolkit().getImage("ramp left small.gif");
+		rampRightSmall = Toolkit.getDefaultToolkit().getImage("ramp right small.gif");
+		endPortal = Toolkit.getDefaultToolkit().getImage("end portal.gif");
+		enderman = Toolkit.getDefaultToolkit().getImage("enderman.gif");
+		endermanSide = Toolkit.getDefaultToolkit().getImage("enderman side.gif");
+		endermanLong = Toolkit.getDefaultToolkit().getImage("enderman long.gif");
+		endermanSideLong = Toolkit.getDefaultToolkit().getImage("enderman side long.gif");
+		endermanRamp = Toolkit.getDefaultToolkit().getImage("enderman ramp.gif");
+		
 		if (level == 1) {
 			walls[0] = new Rectangle(70, 780, 100, 15);
 			walls[1] = new Rectangle(180, 650, 100, 15);
-			walls[2] = new Rectangle(350, 550, 15, 400);
+			walls[2] = new Rectangle(350, 550, 15, 350);
 			walls[3] = new Rectangle(0, 470, 600, 15);
 			walls[4] = new Rectangle(407, 850, 42, 50);
 			walls[5] = new Rectangle(491, 750, 42, 1000);
@@ -259,7 +277,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[20] = new Rectangle(449, 875, 0, 25);
 		}
 		else if (level == 3) {
-			int [] x1= {0, 0, 75};
+			int [] x1= {15, 15, 90};
 			int [] y1= {0, 75, 75};//75
 			rightramps[0]=new Polygon (x1,y1,3);
 			rightramps[1]=new Polygon (x1,y1,0);
@@ -286,7 +304,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[17] = new Rectangle(150, 180, 20, 100);
 			walls[18] = new Rectangle(0, 75, 90, 15);
 			walls[19] = new Rectangle(128, 75, 999, 15);
-			walls[20] = new Rectangle(449, 875, 0, 0);
+			walls[20] = new Rectangle(0, 0, 15, 75);
 		}
 		else {
 			int [] x1= {0, 0, 75};
@@ -307,6 +325,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(new Color(0, 0, 0, 0));
 		g2.drawImage(backgrounds[level], 0, 0, screenWidth, screenHeight, this);
 		if (level==0) {
 			g.drawImage(buttons[0], 30, 530, 300, 100, this);
@@ -325,32 +344,119 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			}
 		}
 		else if (level == 1) {
-			g2.setColor(Color.GRAY);
 			for (int i = 0; i < walls.length; i++)
-				g2.fill(walls[i]);
-			g2.drawImage(door, 590, 6, 70, 70, this);
-			g2.fill(player);
+				g2.draw(walls[i]);
+			
+			g2.drawImage(netherPortal, 594, 0, 62, 75, this);
+			g2.drawImage(oakPlatform, 70, 780, 100, 15, this);
+			g2.drawImage(oakPlatform, 180, 650, 100, 15, this);
+			g2.drawImage(oakFence, 350, 550, 15, 75, this);
+			g2.drawImage(oakFence, 350, 625, 15, 75, this);
+			g2.drawImage(oakFence, 350, 700, 15, 75, this);
+			g2.drawImage(oakFence, 350, 775, 15, 75, this);
+			g2.drawImage(oakFence, 350, 850, 15, 75, this);
+			g2.drawImage(oakFence, 407, 850, 42, 175, this);
+			g2.drawImage(oakFence, 449, 875, 42, 175, this);
+			g2.drawImage(oakFence, 491, 750, 42, 175, this);
+			g2.drawImage(oakFence, 533, 825, 42, 175, this);
+			g2.drawImage(oakFence, 575, 825, 42, 175, this);
+			g2.drawImage(oakFence, 575, 650, 42, 175, this);
+			g2.drawImage(oakFence, 617, 775, 42, 175, this);
+			g2.drawImage(oakFence, 659, 550, 42, 175, this);
+			g2.drawImage(oakFence, 659, 725, 42, 175, this);
+			g2.drawImage(oakPlatform, 0, 470, 100, 15, this);
+			g2.drawImage(oakPlatform, 100, 470, 100, 15, this);
+			g2.drawImage(oakPlatform, 200, 470, 100, 15, this);
+			g2.drawImage(oakPlatform, 300, 470, 100, 15, this);
+			g2.drawImage(oakPlatform, 400, 470, 100, 15, this);
+			g2.drawImage(oakPlatform, 500, 470, 100, 15, this);
+			g2.drawImage(oakPlatform, 600, 370, 100, 15, this);
+			g2.drawImage(oakPlatform, 360, 390, 100, 15, this);
+			g2.drawImage(oakPlatform, 80, 380, 100, 15, this);
+			g2.drawImage(oakPlatform, 200, 270, 100, 15, this);
+			g2.drawImage(oakPlatform, 460, 280, 100, 15, this);
+			g2.drawImage(oakPlatform, 0, 210, 100, 15, this);
+			g2.drawImage(oakPlatform, 130, 120, 100, 15, this);
+			g2.drawImage(oakPlatform, 350, 170, 100, 15, this);
+			g2.drawImage(oakPlatform, 575, 160, 100, 15, this);
+			g2.drawImage(oakPlatform, 550, 75, 150, 15, this);
+		
+			g2.draw(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 		}
 		else if (level == 2) {
-			g2.setColor(Color.GRAY);
 			for (int i = 0; i < walls.length; i++)
 				g2.fill(walls[i]);
 			for (int i = 0; i < leftramps.length; i++)
 				g2.fill(leftramps[i]);
 			for (int i = 0; i < rightramps.length; i++)
 				g2.fill(rightramps[i]);
-			g2.drawImage(door, 590, 6, 70, 70, this);
-			g2.fill(player);
+			
+			g2.drawImage(endPortal, 590, 0, 75, 75, this);
+			g2.drawImage(netherBrickTall, 320, 750, 60, 150, this);
+			g2.drawImage(netherBrickTall, 320, 580, 60, 140, this);
+			g2.drawImage(netherBrickTall, 600, 750, 60, 120, this);
+			g2.drawImage(netherBrickShort, 250, 670, 70, 15, this);
+			g2.drawImage(netherBrickShort, 380, 670, 70, 15, this);
+			g2.drawImage(rampLeft, 55, 670, 195, 195, this);
+			g2.drawImage(netherBrickShort, 50, 670, 70, 15, this);
+			g2.drawImage(netherBrickLong, 50, 520, 217, 15, this);
+			g2.drawImage(netherBrickLong, 267, 520, 217, 15, this);
+			g2.drawImage(netherBrickLong, 484, 520, 217, 15, this);
+			g2.drawImage(netherBrick, 320, 440, 60, 55, this);
+			g2.drawImage(netherBrickSlab, 320, 495, 60, 25, this);
+			g2.drawImage(rampLeftSmall, 240, 440, 80, 80, this);
+			g2.drawImage(rampRightSmall, 380, 440, 80, 80, this);
+			g2.drawImage(netherBrickLong, 600, 370, 100, 15, this);
+			g2.drawImage(netherBrickTall, 340, 300, 20, 40, this);
+			g2.drawImage(netherBrickTall, 340, 340, 20, 40, this);
+			g2.drawImage(rampLeftSmall, 260, 300, 80, 80, this);
+			g2.drawImage(rampRightSmall, 360, 300, 80, 80, this);
+			g2.drawImage(netherBrickTall, 550, 220, 20, 40, this);
+			g2.drawImage(netherBrickTall, 550, 260, 20, 40, this);
+			g2.drawImage(rampLeftSmall, 470, 220, 80, 80, this);
+			g2.drawImage(rampRightSmall, 570, 220, 80, 80, this);
+			g2.drawImage(netherBrickLong, 260, 200, 180, 15, this);
+			g2.drawImage(netherBrickTall, 150, 220, 20, 40, this);
+			g2.drawImage(netherBrickTall, 150, 260, 20, 40, this);
+			g2.drawImage(rampLeftSmall, 70, 220, 80, 80, this);
+			g2.drawImage(rampRightSmall, 170, 220, 80, 80, this);
+			g2.drawImage(netherBrickLong, 150, 75, 184, 15, this);
+			g2.drawImage(netherBrickLong, 334, 75, 184, 15, this);
+			g2.drawImage(netherBrickLong, 518, 75, 184, 15, this);
+			
+			g2.draw(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 		}
 		else if (level == 3) {
-			g2.setColor(Color.GRAY);
 			for (int i = 0; i < walls.length; i++)
 				g2.fill(walls[i]);
 			for (int i = 0; i < rightramps.length; i++)
 				g2.fill(rightramps[i]);
-			g2.drawImage(door, 590, 6, 70, 70, this);
+			
+			g2.drawImage(endPortal, 590, 0, 75, 75, this);
+			g2.drawImage(endermanSideLong, 0, 855, 550, 15, this);
+			g2.drawImage(endermanLong, 450, 220, 15, 645, this);
+			g2.drawImage(endermanSide, 450, 725, 120, 15, this);
+			g2.drawImage(endermanSide, 450, 595, 140, 15, this);
+			g2.drawImage(endermanSide, 450, 465, 160, 15, this);
+			g2.drawImage(endermanSide, 450, 335, 180, 15, this);
+			g2.drawImage(endermanSide, 450, 205, 200, 15, this);
+			g2.drawImage(endermanLong, 405, 85, 15, 740, this);
+			g2.drawImage(enderman, 300, 700, 20, 100, this);
+			g2.drawImage(enderman, 50, 650, 20, 100, this);
+			g2.drawImage(enderman, 170, 600, 20, 100, this);
+			g2.drawImage(enderman, 320, 520, 20, 100, this);
+			g2.drawImage(enderman, 90, 470, 20, 100, this);
+			g2.drawImage(enderman, 200, 400, 20, 100, this);
+			g2.drawImage(enderman, 260, 270, 20, 100, this);
+			g2.drawImage(enderman, 40, 280, 20, 100, this);
+			g2.drawImage(enderman, 350, 160, 20, 100, this);
+			g2.drawImage(enderman, 150, 180, 20, 100, this);
+			g2.drawImage(endermanSide, 0, 75, 90, 15, this);
+			g2.drawImage(endermanSideLong, 128, 75, 572, 15, this);
+			g2.drawImage(endermanRamp, 15, 0, 75, 75, this);
+				
 			g2.fill(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 		}
@@ -542,14 +648,25 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 
 
 	public void winner () {
-		if (player.x >= 590 && player.x <= 630 && player.y >= 6 && player.y <= 46 && win == true) {
-			level++;
-			player.y = 900 - player.height;
-			player.x = 0;
-			win = false;
-			airborne = true;
+		if (level == 1) {
+			if (player.x >= 594 && player.x <= 626 && player.y >= 0 && player.y <= 45 && win == true) {
+				level++;
+				player.y = 900 - player.height;
+				player.x = 0;
+				win = false;
+				airborne = true;
+			}
 		}
-		else
+		else if (level == 2 || level == 3) {
+			if (player.x >= 590 && player.x <= 635 && player.y >= 0 && player.y <= 45 && win == true) {
+				level++;
+				player.y = 900 - player.height;
+				player.x = 0;
+				win = false;
+				airborne = true;
+			}
+		}
+		else	
 			win = false;
 	}
 
