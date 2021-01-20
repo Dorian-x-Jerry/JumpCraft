@@ -33,3 +33,7 @@ Jerry Jan 15 2:45pm. fixed falling through platforms at high speeds bug by cappi
 Jerry Jan 16 12:15pm. finished creating level 3
 
 Jerry Jan 16 10:23pm. fixed minor platform bug, renamed window to "Jumpcraft"
+
+Dorian Jan 19 3:00pm. ramp physics + ramp
+
+Jerry Jan 20 3:13pm. finished graphics for all levels
