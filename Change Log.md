@@ -37,3 +37,5 @@ Jerry Jan 16 10:23pm. fixed minor platform bug, renamed window to "Jumpcraft"
 Dorian Jan 19 3:00pm. ramp physics + ramp
 
 Jerry Jan 20 3:13pm. finished graphics for all levels
+
+Jerry Jan 21 3:23pm. made skin selection screen, wacky bug where clicking on part of screen overlapped by level 0 and 1 mouse conditions makes screen switch rapidly between main and skin selection screen gave me seizure
