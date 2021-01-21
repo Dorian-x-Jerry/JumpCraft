@@ -16,9 +16,11 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	Rectangle[] walls = new Rectangle[21];
 	Polygon[] rightramps = new Polygon[4];
 	Polygon[] leftramps = new Polygon[5];
-	Image[] backgrounds = new Image[5];
+	Image[] backgrounds = new Image[6];
 	Image[] buttons = new Image[5];
-	Image playerIcon, netherPortal, oakPlatform, oakFence, netherBrick, netherBrickSlab, netherBrickTall, netherBrickShort, netherBrickLong, netherBrickFence,
+	Image[] skins = new Image[6];
+	Image playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon0.gif");
+	Image netherPortal, oakPlatform, oakFence, netherBrick, netherBrickSlab, netherBrickTall, netherBrickShort, netherBrickLong, netherBrickFence,
 	rampLeft, rampLeftSmall, rampRightSmall, endPortal, enderman, endermanSide, endermanLong, endermanSideLong, endermanRamp;
 	boolean jump, left, right, win;
 	double speed = 5;
@@ -93,7 +95,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	@Override
 	public void run() {
 		initialize();
-		while (level < 5) {
+		while (level < 6) {
 			if (level == 0) {
 				try {
 					Thread.sleep(1000/FPS);
@@ -104,9 +106,49 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 				this.repaint();
 				if (mouseclickx > 30 && mouseclickx < 330 && mouseclicky > 530 && mouseclicky < 630
 						&& mouseclickreleasex > 30 && mouseclickreleasex < 330 && mouseclickreleasey > 530 && mouseclickreleasey < 630)
-					level++; 
+					level += 2; 
+				else if (mouseclickx > 370 && mouseclickx < 670 && mouseclicky > 530 && mouseclicky < 630
+						&& mouseclickreleasex > 370 && mouseclickreleasex < 670 && mouseclickreleasey > 530 && mouseclickreleasey < 630)
+					level++;
 			}
-			else if (level==1){
+			else if (level == 1) {
+				try {
+					Thread.sleep(1000/FPS);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.repaint();
+				if (mouseclickx > 100 && mouseclickx < 200 && mouseclicky > 500 && mouseclicky < 600
+						&& mouseclickreleasex > 100 && mouseclickreleasex < 200 && mouseclickreleasey > 500 && mouseclickreleasey < 600)
+					level--;
+				else if (mouseclickx > 300 && mouseclickx < 400 && mouseclicky > 500 && mouseclicky < 600
+						&& mouseclickreleasex > 300 && mouseclickreleasex < 400 && mouseclickreleasey > 500 && mouseclickreleasey < 600) {
+					playerIcon = skins[1];
+					level--;
+				}
+				else if (mouseclickx > 500 && mouseclickx < 600 && mouseclicky > 500 && mouseclicky < 600
+						&& mouseclickreleasex > 500 && mouseclickreleasex < 600 && mouseclickreleasey > 500 && mouseclickreleasey < 600) {
+					playerIcon = skins[2];
+					level--;
+				}
+				else if (mouseclickx > 100 && mouseclickx < 200 && mouseclicky > 700 && mouseclicky < 800
+						&& mouseclickreleasex > 100 && mouseclickreleasex < 200 && mouseclickreleasey > 700 && mouseclickreleasey < 800) {
+					playerIcon = skins[3];
+					level--;
+				}
+				else if (mouseclickx > 300 && mouseclickx < 400 && mouseclicky > 700 && mouseclicky < 800
+						&& mouseclickreleasex > 300 && mouseclickreleasex < 400 && mouseclickreleasey > 700 && mouseclickreleasey < 800) {
+					playerIcon = skins[4];
+					level--;
+				}
+				else if (mouseclickx > 500 && mouseclickx < 600 && mouseclicky > 700 && mouseclicky < 800
+						&& mouseclickreleasex > 500 && mouseclickreleasex < 600 && mouseclickreleasey > 700 && mouseclickreleasey < 800) {
+					playerIcon = skins[5];
+					level--;
+				}
+			}
+			else if (level==2){
 				initialize();
 				move();
 				for (int i = 0; i < walls.length; i++)
@@ -119,7 +161,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 					e.printStackTrace();
 				}
 			}
-			else if (level==2) {
+			else if (level==3) {
 				initialize();
 				move();
 				for (int i = 0; i < walls.length; i++)
@@ -136,7 +178,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 					e.printStackTrace();
 				}
 			}
-			else if (level==3) {
+			else if (level==4) {
 				initialize();
 				move();
 				for (int i = 0; i < walls.length; i++)
@@ -151,7 +193,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 					e.printStackTrace();
 				}
 			}
-			else if (level==4){
+			else if (level==5){
 				initialize();
 				move();
 				for (int i = 0; i < walls.length; i++)
@@ -172,7 +214,9 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			backgrounds[i] = Toolkit.getDefaultToolkit().getImage("background" + i + ".gif");
 		for (int i = 0; i < buttons.length; i++)
 			buttons[i] = Toolkit.getDefaultToolkit().getImage("but" + i + ".gif");
-		playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon.gif");
+		for (int i = 0; i < skins.length; i++)
+			skins[i] = Toolkit.getDefaultToolkit().getImage("playerIcon" + i + ".gif");
+		
 		oakPlatform = Toolkit.getDefaultToolkit().getImage("oak platform.gif");
 		oakFence = Toolkit.getDefaultToolkit().getImage("oak fence.gif");
 		netherPortal = Toolkit.getDefaultToolkit().getImage("nether portal.gif");
@@ -192,7 +236,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		endermanSideLong = Toolkit.getDefaultToolkit().getImage("enderman side long.gif");
 		endermanRamp = Toolkit.getDefaultToolkit().getImage("enderman ramp.gif");
 		
-		if (level == 1) {
+		if (level == 2) {
 			walls[0] = new Rectangle(70, 780, 100, 15);
 			walls[1] = new Rectangle(180, 650, 100, 15);
 			walls[2] = new Rectangle(350, 550, 15, 350);
@@ -215,7 +259,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[19] = new Rectangle(533, 825, 42, 75);
 			walls[20] = new Rectangle(449, 875, 42, 25);
 		}
-		else if (level == 2) {
+		else if (level == 3) {
 			int [] x1= {250, 250, 55};
 			int [] y1= {670, 865, 865};//195
 
@@ -276,7 +320,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[19] = new Rectangle(533, 825, 0, 75);
 			walls[20] = new Rectangle(449, 875, 0, 25);
 		}
-		else if (level == 3) {
+		else if (level == 4) {
 			int [] x1= {15, 15, 90};
 			int [] y1= {0, 75, 75};//75
 			rightramps[0]=new Polygon (x1,y1,3);
@@ -327,6 +371,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(new Color(0, 0, 0, 0));
 		g2.drawImage(backgrounds[level], 0, 0, screenWidth, screenHeight, this);
+	
 		if (level==0) {
 			g.drawImage(buttons[0], 30, 530, 300, 100, this);
 			g.drawImage(buttons[2], 370, 530, 300, 100, this);
@@ -341,9 +386,17 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			else {
 				g.drawImage(buttons[0], 30, 530, 300, 100, this);
 				g.drawImage(buttons[2], 370, 530, 300, 100, this);
-			}
+			}	
 		}
 		else if (level == 1) {
+			g2.drawImage(skins[0], 100, 500, 100, 100, this);
+			g2.drawImage(skins[1], 300, 500, 100, 100, this);
+			g2.drawImage(skins[2], 500, 500, 100, 100, this);
+			g2.drawImage(skins[3], 100, 700, 100, 100, this);
+			g2.drawImage(skins[4], 300, 700, 100, 100, this);
+			g2.drawImage(skins[5], 500, 700, 100, 100, this);
+		}
+		else if (level == 2) {
 			for (int i = 0; i < walls.length; i++)
 				g2.draw(walls[i]);
 			
@@ -384,7 +437,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			g2.draw(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 		}
-		else if (level == 2) {
+		else if (level == 3) {
 			for (int i = 0; i < walls.length; i++)
 				g2.fill(walls[i]);
 			for (int i = 0; i < leftramps.length; i++)
@@ -428,7 +481,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			g2.draw(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 		}
-		else if (level == 3) {
+		else if (level == 4) {
 			for (int i = 0; i < walls.length; i++)
 				g2.fill(walls[i]);
 			for (int i = 0; i < rightramps.length; i++)
@@ -460,7 +513,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			g2.fill(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 		}
-		else if (level == 4) {
+		else if (level == 5) {
 			g2.setColor(Color.GRAY);
 			for (int i = 0; i < walls.length; i++)
 				g2.fill(walls[i]);
@@ -648,7 +701,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 
 
 	public void winner () {
-		if (level == 1) {
+		if (level == 2) {
 			if (player.x >= 594 && player.x <= 626 && player.y >= 0 && player.y <= 45 && win == true) {
 				level++;
 				player.y = 900 - player.height;
@@ -657,7 +710,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 				airborne = true;
 			}
 		}
-		else if (level == 2 || level == 3) {
+		else if (level == 3 || level == 4) {
 			if (player.x >= 590 && player.x <= 635 && player.y >= 0 && player.y <= 45 && win == true) {
 				level++;
 				player.y = 900 - player.height;
