@@ -41,3 +41,5 @@ Jerry Jan 20 3:13pm. finished graphics for all levels
 Jerry Jan 21 3:23pm. made skin selection screen, wacky bug where clicking on part of screen overlapped by level 0 and 1 mouse conditions makes screen switch rapidly between main and skin selection screen gave me seizure
 
 Dorian Jan 25 2:00pm. Fixed skin selection bug
+
+Jerry Jan 25 2:37pm. Added crown graphic and controls to main menu
