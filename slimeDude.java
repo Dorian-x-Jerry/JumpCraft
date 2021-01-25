@@ -1,7 +1,11 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +25,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	Image[] skins = new Image[6];
 	Image playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon0.gif");
 	Image netherPortal, oakPlatform, oakFence, netherBrick, netherBrickSlab, netherBrickTall, netherBrickShort, netherBrickLong, netherBrickFence,
-	rampLeft, rampLeftSmall, rampRightSmall, endPortal, enderman, endermanSide, endermanLong, endermanSideLong, endermanRamp;
+	rampLeft, rampLeftSmall, rampRightSmall, endPortal, enderman, endermanSide, endermanLong, endermanSideLong, endermanRamp, crown;
+	Clip sweden, nether, end, winmusic;
 	boolean jump, left, right, win;
 	double speed = 5;
 	double jumpSpeed = 15;
@@ -247,7 +252,27 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		endermanLong = Toolkit.getDefaultToolkit().getImage("enderman long.gif");
 		endermanSideLong = Toolkit.getDefaultToolkit().getImage("enderman side long.gif");
 		endermanRamp = Toolkit.getDefaultToolkit().getImage("enderman ramp.gif");
+		crown = Toolkit.getDefaultToolkit().getImage("crown.gif");
 
+		try {
+			AudioInputStream sound = AudioSystem.getAudioInputStream(new File ("sweden.wav"));
+			sweden = AudioSystem.getClip();
+			sweden.open(sound);
+			
+			sound = AudioSystem.getAudioInputStream(new File ("nether.wav"));
+			nether = AudioSystem.getClip();
+			nether.open(sound);
+			
+			sound = AudioSystem.getAudioInputStream(new File ("end.wav"));
+			end = AudioSystem.getClip();
+			end.open(sound);
+			
+			sound = AudioSystem.getAudioInputStream(new File ("winmusic.wav"));
+			winmusic = AudioSystem.getClip();
+			winmusic.open(sound);
+		}
+		catch (Exception e) {}
+		
 		if (level == 2) {
 			walls[0] = new Rectangle(70, 780, 100, 15);
 			walls[1] = new Rectangle(180, 650, 100, 15);
@@ -534,6 +559,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			//			g2.drawImage(door, 590, 6, 70, 70, this);
 			g2.fill(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
+			g2.drawImage(crown, player.x-5, player.y-24, 40, 28, this);
 		}
 	}
 
