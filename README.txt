@@ -1,6 +1,6 @@
 Responsibilities
-Dorian: Movement and collision physics (including ramps), title + end screen functionality, backgrounds, bug fixing
-Jerry: Level design and creation, graphics implementation, skin selection functionality
+Dorian: Movement and collision physics (including building and sliding on ramps), title + end screen layout and functionality (mousePressed/Released methods), background design and implementation, bug fixing, win-check function
+Jerry: Level design and creation (rectangles), graphics implementation (skins, level walls and ramps, portals, etc.), skin selection layout and functionality
 
 How to play
 Controls are displayed on main menu when the game is first started. Click "skins" button to select one of six player icons, which will take you back to the main menu. Click "start" to start Level 1 and maneuver your way to the portal in the top right corner. Repeat for other levels. Beat Level 3 to win the game. No pauses, no in-game menu, no level selection. Beat all three levels successively to beat the game.
