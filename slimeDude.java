@@ -4,7 +4,7 @@ Assignment #: ISU
 Date: January 26, 2021
 Description: Welcome to Jumpcraft, a Minecraft-inspired platform game! This program creates a window allowing the user to play Jumpcraft, which features a main menu,
 skin selection, three levels of progressively increasing difficulties, and a win screen, all with Minecraft-themed graphics. Will you be able to conquer the
-Overworld, Nether, and End and become the Jumpcraft king?
+Overworld, Nether, and End and become the Jumpcraft king B')
 */
 
 import javax.swing.*;
