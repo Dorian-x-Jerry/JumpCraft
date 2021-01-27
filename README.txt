@@ -7,7 +7,7 @@ Controls are displayed on main menu when the game is first started. Click "skins
 
 Functionalities
 Missing: Idle/jump animation and transition between maps (both extra and unecessary components)
-Added: Minecraft-themed everything (graphics, level backgrounds and objects, skins, etc.)
+Added: Minecraft-themed everything (graphics, level backgrounds and objects, skins, etc.), mystery easter egg???
 
 Known bugs/errors
 None
