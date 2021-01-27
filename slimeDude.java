@@ -26,6 +26,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	Image[] backgrounds = new Image[6];
 	Image[] buttons = new Image[5];
 	Image[] skins = new Image[8];
+	Image cover;
 	Image playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon0.gif");
 	Image netherPortal, oakPlatform, oakFence, netherBrick, netherBrickSlab, netherBrickTall, netherBrickShort, netherBrickLong, netherBrickFence,
 	rampLeft, rampLeftSmall, rampRightSmall, endPortal, enderman, endermanSide, endermanLong, endermanSideLong, endermanRamp, crown;
@@ -79,7 +80,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	public void mousePressed(MouseEvent e) {
 		mouseclickx = e.getX();
 		mouseclicky = e.getY();
-		System.out.println("press" + mouseclickx + " " + mouseclicky);
+		//System.out.println("press" + mouseclickx + " " + mouseclicky);
 	}
 
 	@Override
@@ -259,8 +260,10 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			buttons[i] = Toolkit.getDefaultToolkit().getImage("but" + i + ".gif");
 		for (int i = 0; i < skins.length; i++)
 			skins[i] = Toolkit.getDefaultToolkit().getImage("playerIcon" + i + ".gif");
-
+		
+		
 		//retrieve and define all in-game graphics
+		cover = Toolkit.getDefaultToolkit().getImage("covering.gif");
 		oakPlatform = Toolkit.getDefaultToolkit().getImage("oak platform.gif");
 		oakFence = Toolkit.getDefaultToolkit().getImage("oak fence.gif");
 		netherPortal = Toolkit.getDefaultToolkit().getImage("nether portal.gif");
@@ -451,6 +454,33 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			g2.drawImage(skins[5], 500, 700, 100, 100, this);
 			g2.drawImage(skins[6], 180, 250, 100, 100, this);
 			g2.drawImage(skins[7], 420, 250, 100, 100, this);
+			
+			if (mousehoverx >= 100 && mousehoverx <= 200 && mousehovery >= 500 && mousehovery <= 600) {
+				g.drawImage(cover,100,500,100,100,this);
+			}
+			else if (mousehoverx >= 300 && mousehoverx <= 400 && mousehovery >= 500 && mousehovery <= 600) {
+				g.drawImage(cover,300,500,100,100,this);
+			}
+			else if (mousehoverx >= 500 && mousehoverx <= 600 && mousehovery >= 500 && mousehovery <= 600) {
+				g.drawImage(cover,500,500,100,100,this);
+			}
+			else if (mousehoverx >= 100 && mousehoverx <= 200 && mousehovery >= 700 && mousehovery <= 800) {
+				g.drawImage(cover,100,700,100,100,this);
+			}
+			else if (mousehoverx >= 300 && mousehoverx <= 400 && mousehovery >= 700 && mousehovery <= 800) {
+				g.drawImage(cover,300,700,100,100,this);
+			}
+			else if (mousehoverx >= 500 && mousehoverx <= 600 && mousehovery >= 700 && mousehovery <= 800) {
+				g.drawImage(cover,500,700,100,100,this);
+			}
+			else if (mousehoverx >= 180 && mousehoverx <= 280 && mousehovery >= 250 && mousehovery <= 350) {
+				g.drawImage(cover,180,250,100,100,this);
+			}
+			else if (mousehoverx >= 420 && mousehoverx <= 520 && mousehovery >= 250 && mousehovery <= 350) {
+				g.drawImage(cover,420,250,100,100,this);
+			}
+			else {
+			}	
 		}
 		//draw Level 1 walls + graphics overlayed on the walls
 		else if (level == 2) {
