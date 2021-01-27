@@ -49,3 +49,5 @@ Jerry Jan 26 8:53pm. Wrote internal, method, intro comments, polished stuff up
 Jerry Jan 27 11:39am. Added our own skins' heads as options in skin selection menu
 
 Dorian Jan 27 1:20pm. Added yellow outline when hovering over skins
+
+Dorian Jan 27 2:30pm. Added skin seelction, win screen and level backgrounds, nether portal cheat
