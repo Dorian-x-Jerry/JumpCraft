@@ -14,3 +14,5 @@ None
 
 Additional info
 Rather than add extra ornamental features, we focused on catching and fixing bugs and polishing our game in order to deliver on what we set out to do at the beginning of the project. The result was a simple yet very cohesive and complete game, which we believe is much better than having a messy game wtih many features.
+
+P.S. type "ms wong" in the console and maybe something will happen...
