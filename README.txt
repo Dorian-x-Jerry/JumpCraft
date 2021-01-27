@@ -11,7 +11,7 @@ Added: Minecraft-themed everything (graphics, level backgrounds and objects, ski
 
 Known bugs/errors
 None B:')
-we will pay anyone who finds a bug $5
+We will pay anyone who finds a bug $5
 
 Additional info
 Rather than add extra ornamental features, we focused on catching and fixing bugs and polishing our game in order to deliver on what we set out to do at the beginning of the project. The result was a simple yet very cohesive and complete game, which we believe is much better than having a messy game wtih many features.
