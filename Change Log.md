@@ -43,3 +43,5 @@ Jerry Jan 21 3:23pm. made skin selection screen, wacky bug where clicking on par
 Dorian Jan 25 2:00pm. Fixed skin selection bug
 
 Jerry Jan 25 2:37pm. Added crown graphic and controls to main menu
+
+Jerry Jan 26 8:53pm. Wrote internal, method, intro comments, polished stuff up
