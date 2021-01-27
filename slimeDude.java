@@ -185,12 +185,6 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			}
 			//run Level 1 by calling other methods and repainting
 			else if (level==2){
-				if (flag && mouseclickx > 595 && mouseclickx < 655 && mouseclicky > 0 && mouseclicky < 70
-						&& mouseclickreleasex > 595 && mouseclickreleasex < 655 && mouseclickreleasey > 0 && mouseclickreleasey < 70) {
-					mouseclickx=0; mouseclicky=0; mouseclickreleasex=0; mouseclickreleasey=0;
-					System.out.println("Hi, Ms. Wong :)\n\nWe just wanted to thank you for teaching us computer science this\nsemester, and always putting up with our 12 am emails.\nWe really really appreciate all that you have done for us throughout the entire year:\nrunning the competitions, extra help sessions, clubs, and more!!\nAs a thank you, we have also activated a cheat that makes the game a little easier.\nGood Luck!");
-					gravity=0.2;
-				}
 				initialize();
 				move();
 				for (int i = 0; i < walls.length; i++)
@@ -201,6 +195,15 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 					Thread.sleep(1000/FPS);
 				} catch(Exception e) {
 					e.printStackTrace();
+				}
+				//cheat if mouse clicked on Nether portal :)
+				if (flag && mouseclickx > 595 && mouseclickx < 655 && mouseclicky > 0 && mouseclicky < 70
+						&& mouseclickreleasex > 595 && mouseclickreleasex < 655 && mouseclickreleasey > 0 && mouseclickreleasey < 70) {
+					mouseclickx=0; mouseclicky=0; mouseclickreleasex=0; mouseclickreleasey=0;
+					System.out.println("Hi, Ms. Wong :)\n\nWe just wanted to thank you for teaching us computer science this\nsemester, and always putting up with "
+							+ "our 12 am emails.\nWe really really appreciate all that you have done for us throughout the entire year:\nrunning the competitions, "
+							+ "extra help sessions, clubs, and more!!\nAs a thank you, we have also activated a cheat that makes the game a little easier.\nGood Luck!");
+					gravity = 0.2;
 				}
 			}
 			//run Level 2 by calling other methods and repainting
@@ -462,32 +465,23 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			g2.drawImage(skins[6], 180, 250, 100, 100, this);
 			g2.drawImage(skins[7], 420, 250, 100, 100, this);
 			
-			if (mousehoverx >= 100 && mousehoverx <= 200 && mousehovery >= 500 && mousehovery <= 600) {
+			//draw yellow outline over skins if mouse hovers over them
+			if (mousehoverx >= 100 && mousehoverx <= 200 && mousehovery >= 500 && mousehovery <= 600)
 				g.drawImage(cover,100,500,100,100,this);
-			}
-			else if (mousehoverx >= 300 && mousehoverx <= 400 && mousehovery >= 500 && mousehovery <= 600) {
+			else if (mousehoverx >= 300 && mousehoverx <= 400 && mousehovery >= 500 && mousehovery <= 600)
 				g.drawImage(cover,300,500,100,100,this);
-			}
-			else if (mousehoverx >= 500 && mousehoverx <= 600 && mousehovery >= 500 && mousehovery <= 600) {
+			else if (mousehoverx >= 500 && mousehoverx <= 600 && mousehovery >= 500 && mousehovery <= 600)
 				g.drawImage(cover,500,500,100,100,this);
-			}
-			else if (mousehoverx >= 100 && mousehoverx <= 200 && mousehovery >= 700 && mousehovery <= 800) {
+			else if (mousehoverx >= 100 && mousehoverx <= 200 && mousehovery >= 700 && mousehovery <= 800)
 				g.drawImage(cover,100,700,100,100,this);
-			}
-			else if (mousehoverx >= 300 && mousehoverx <= 400 && mousehovery >= 700 && mousehovery <= 800) {
+			else if (mousehoverx >= 300 && mousehoverx <= 400 && mousehovery >= 700 && mousehovery <= 800)
 				g.drawImage(cover,300,700,100,100,this);
-			}
-			else if (mousehoverx >= 500 && mousehoverx <= 600 && mousehovery >= 700 && mousehovery <= 800) {
+			else if (mousehoverx >= 500 && mousehoverx <= 600 && mousehovery >= 700 && mousehovery <= 800)
 				g.drawImage(cover,500,700,100,100,this);
-			}
-			else if (mousehoverx >= 180 && mousehoverx <= 280 && mousehovery >= 250 && mousehovery <= 350) {
+			else if (mousehoverx >= 180 && mousehoverx <= 280 && mousehovery >= 250 && mousehovery <= 350)
 				g.drawImage(cover,180,250,100,100,this);
-			}
-			else if (mousehoverx >= 420 && mousehoverx <= 520 && mousehovery >= 250 && mousehovery <= 350) {
+			else if (mousehoverx >= 420 && mousehoverx <= 520 && mousehovery >= 250 && mousehovery <= 350)
 				g.drawImage(cover,420,250,100,100,this);
-			}
-			else {
-			}	
 		}
 		//draw Level 1 walls + graphics overlayed on the walls
 		else if (level == 2) {
