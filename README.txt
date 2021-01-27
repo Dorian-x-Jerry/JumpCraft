@@ -10,9 +10,10 @@ Missing: Idle/jump animation and transition between maps (both extra and unecess
 Added: Minecraft-themed everything (graphics, level backgrounds and objects, skins, etc.), mystery easter egg???
 
 Known bugs/errors
-None
+None B:')
+we will pay anyone who finds a bug $5
 
 Additional info
 Rather than add extra ornamental features, we focused on catching and fixing bugs and polishing our game in order to deliver on what we set out to do at the beginning of the project. The result was a simple yet very cohesive and complete game, which we believe is much better than having a messy game wtih many features.
 
-P.S. click on the Nether potal in Level 1 and something cool might happen...
+Psst.. click on the Nether potal in Level 1 and something cool might happen...
