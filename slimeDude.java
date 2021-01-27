@@ -1,17 +1,20 @@
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+/*
+Name: Dorian Chen, Jerry Wu
+Assignment #: ISU
+Date: January 26, 2021
+Description: Welcome to Jumpcraft, a Minecraft-inspired platform game! This program creates a window allowing the user to play Jumpcraft, which features a main menu,
+skin selection, three levels of progressively increasing difficulties, and a win screen, all with Minecraft-themed graphics. Will you be able to conquer the
+Overworld, Nether, and End and become the Jumpcraft king?
+*/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.sql.Time;
-import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("serial")
 public class slimeDude extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener {
 
+	//defining all required global variables
 	Thread thread;
 	int FPS = 60;
 	int screenWidth = 700;
@@ -26,7 +29,6 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	Image playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon0.gif");
 	Image netherPortal, oakPlatform, oakFence, netherBrick, netherBrickSlab, netherBrickTall, netherBrickShort, netherBrickLong, netherBrickFence,
 	rampLeft, rampLeftSmall, rampRightSmall, endPortal, enderman, endermanSide, endermanLong, endermanSideLong, endermanRamp, crown;
-	Clip sweden, nether, end, winmusic;
 	boolean jump, left, right, win;
 	double speed = 5;
 	double jumpSpeed = 15;
@@ -42,9 +44,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	int level = 0;
 	boolean airborne = true;
 
-	//ramps
-
-
+	//defining and starting the thread
 	public slimeDude() {
 		setPreferredSize(new Dimension(screenWidth, screenHeight));
 		setVisible(true);
@@ -55,21 +55,19 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		win = false;
 		addMouseListener(this);
 		addMouseMotionListener(this);
+
 		thread = new Thread(this);
 		thread.start();
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseDragged(MouseEvent e) {}
 
 	@Override
+	//retrieves current coordinates of cursor when mouse is moved
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		mousehoverx=e.getX();
-		mousehovery=e.getY();
+		mousehoverx = e.getX();
+		mousehovery = e.getY();
 		//System.out.println(mousehoverx+" "+mousehovery);
 	}
 
@@ -77,6 +75,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	public void mouseClicked(MouseEvent e) {}
 
 	@Override
+	//retrieves current coordinates of cursor when mouse is pressed
 	public void mousePressed(MouseEvent e) {
 		mouseclickx = e.getX();
 		mouseclicky = e.getY();
@@ -84,6 +83,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	}
 
 	@Override
+	//retrieves current coordinates of cursor when mouse is released
 	public void mouseReleased(MouseEvent e) {
 		mouseclickreleasex = e.getX();
 		mouseclickreleasey = e.getY();
@@ -91,21 +91,25 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
+	public void mouseEntered(MouseEvent e) {}
+	
 	@Override
 	public void mouseExited(MouseEvent e) {}
 
-
 	@Override
+	/**
+	 * Description: Main thread method that advances to levels from title screen, runs the game while within levels by calling other methods.
+	 * Parameters: None.
+	 */
 	public void run() {
 		initialize();
 		while (level < 6) {
+			//check if player pressed/released mouse in areas covered by the start/skins buttons, change level variable accordingly
+			//int level 0 is main menu, level 1 is skin selection, 2 is in-game Level 1, etc.
 			if (level == 0) {
 				try {
 					Thread.sleep(1000/FPS);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				this.repaint();
@@ -121,11 +125,11 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 					level++;
 				}
 			}
+			//check for player mouse pressed/released input in skin selection screen, change player icon accordingly and return to main menu
 			else if (level == 1) {
 				try {
 					Thread.sleep(1000/FPS);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				this.repaint();
@@ -165,6 +169,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 					level--;
 				}
 			}
+			//run Level 1 by calling other methods and repainting
 			else if (level==2){
 				initialize();
 				move();
@@ -178,15 +183,16 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 					e.printStackTrace();
 				}
 			}
+			//run Level 2 by calling other methods and repainting
 			else if (level==3) {
 				initialize();
 				move();
 				for (int i = 0; i < walls.length; i++)
 					checkCollision(walls[i]);
 				for (int i = 0; i < leftramps.length; i++)
-					checkSliderleft(leftramps[i]);
+					checkSliderLeft(leftramps[i]);
 				for (int i = 0; i < rightramps.length; i++)
-					checkSliderright(rightramps[i]);
+					checkSliderRight(rightramps[i]);
 				keepInBound();
 				this.repaint();
 				try {
@@ -195,13 +201,14 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 					e.printStackTrace();
 				}
 			}
+			//run Level 3 by calling other methods and repainting
 			else if (level==4) {
 				initialize();
 				move();
 				for (int i = 0; i < walls.length; i++)
 					checkCollision(walls[i]);
 				for (int i = 0; i < rightramps.length; i++)
-					checkSliderright(rightramps[i]);
+					checkSliderRight(rightramps[i]);
 				keepInBound();
 				this.repaint();
 				try {
@@ -210,6 +217,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 					e.printStackTrace();
 				}
 			}
+			//run win screen
 			else if (level==5){
 				initialize();
 				move();
@@ -225,8 +233,14 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			}
 		}
 	}
-
+	
+	/**
+	 * Description: Set up levels by defining array and graphics variables and building Rectangles and Polygons.
+	 * Parameters: N/A
+	 * @return N/A
+	 */
 	public void initialize() {
+		//retrieve all backgrounds, buttons, and skins images abd store in arrays
 		for (int i = 0; i < backgrounds.length; i++)
 			backgrounds[i] = Toolkit.getDefaultToolkit().getImage("background" + i + ".gif");
 		for (int i = 0; i < buttons.length; i++)
@@ -234,6 +248,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		for (int i = 0; i < skins.length; i++)
 			skins[i] = Toolkit.getDefaultToolkit().getImage("playerIcon" + i + ".gif");
 
+		//retrieve and define all in-game graphics
 		oakPlatform = Toolkit.getDefaultToolkit().getImage("oak platform.gif");
 		oakFence = Toolkit.getDefaultToolkit().getImage("oak fence.gif");
 		netherPortal = Toolkit.getDefaultToolkit().getImage("nether portal.gif");
@@ -253,26 +268,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		endermanSideLong = Toolkit.getDefaultToolkit().getImage("enderman side long.gif");
 		endermanRamp = Toolkit.getDefaultToolkit().getImage("enderman ramp.gif");
 		crown = Toolkit.getDefaultToolkit().getImage("crown.gif");
-
-		try {
-			AudioInputStream sound = AudioSystem.getAudioInputStream(new File ("sweden.wav"));
-			sweden = AudioSystem.getClip();
-			sweden.open(sound);
-			
-			sound = AudioSystem.getAudioInputStream(new File ("nether.wav"));
-			nether = AudioSystem.getClip();
-			nether.open(sound);
-			
-			sound = AudioSystem.getAudioInputStream(new File ("end.wav"));
-			end = AudioSystem.getClip();
-			end.open(sound);
-			
-			sound = AudioSystem.getAudioInputStream(new File ("winmusic.wav"));
-			winmusic = AudioSystem.getClip();
-			winmusic.open(sound);
-		}
-		catch (Exception e) {}
 		
+		//build Level 1 by defining elements of walls array with Rectangles
 		if (level == 2) {
 			walls[0] = new Rectangle(70, 780, 100, 15);
 			walls[1] = new Rectangle(180, 650, 100, 15);
@@ -296,7 +293,9 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[19] = new Rectangle(533, 825, 42, 75);
 			walls[20] = new Rectangle(449, 875, 42, 25);
 		}
+		//build Level 2
 		else if (level == 3) {
+			//store Polygon vertex coordinates in arrays for easier writing
 			int [] x1= {250, 250, 55};
 			int [] y1= {670, 865, 865};//195
 
@@ -324,6 +323,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			int [] x9= {170, 170, 250};//80
 			int [] y9= {220, 300, 300};
 
+			//define elements of ramp arrays with Polygons
 			leftramps[0] = new Polygon(x1,y1,3);
 			leftramps[1] = new Polygon(x2,y2,3);
 			leftramps[2] = new Polygon(x3,y3,3);
@@ -357,6 +357,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			walls[19] = new Rectangle(533, 825, 0, 75);
 			walls[20] = new Rectangle(449, 875, 0, 25);
 		}
+		//build Level 3
 		else if (level == 4) {
 			int [] x1= {15, 15, 90};
 			int [] y1= {0, 75, 75};//75
@@ -393,23 +394,26 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 
 			for (int e = 0; e < walls.length; e++)
 				walls[e]= new Rectangle(0, 0, 0, 0);
-			for (int e =0; e<rightramps.length;e++) {
+			for (int e =0; e<rightramps.length;e++)
 				rightramps[e]=new Polygon(x1,y1,0);
-			}
-			for (int e =0; e<leftramps.length;e++) {
+			for (int e =0; e<leftramps.length;e++)
 				leftramps[e]=new Polygon(x1,y1,0);
-			}
 		}
 	}
 
-
+	/**
+	 * Description: Draws the window and updates it.
+	 * @param g
+	 * @return N/A
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(new Color(0, 0, 0, 0));
 		g2.drawImage(backgrounds[level], 0, 0, screenWidth, screenHeight, this);
 
-		if (level==0) {
+		//draw button images on main menu, change if mouse hovers over them
+		if (level == 0) {
 			g.drawImage(buttons[0], 30, 530, 300, 100, this);
 			g.drawImage(buttons[2], 370, 530, 300, 100, this);
 			if (mousehoverx >= 30 && mousehoverx <= 330 && mousehovery >= 530 && mousehovery <= 630) {
@@ -425,6 +429,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 				g.drawImage(buttons[2], 370, 530, 300, 100, this);
 			}	
 		}
+		//draw various skin options on skins selection screen
 		else if (level == 1) {
 			g2.drawImage(skins[0], 100, 500, 100, 100, this);
 			g2.drawImage(skins[1], 300, 500, 100, 100, this);
@@ -433,6 +438,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			g2.drawImage(skins[4], 300, 700, 100, 100, this);
 			g2.drawImage(skins[5], 500, 700, 100, 100, this);
 		}
+		//draw Level 1 walls + graphics overlayed on the walls
 		else if (level == 2) {
 			for (int i = 0; i < walls.length; i++)
 				g2.draw(walls[i]);
@@ -471,9 +477,11 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			g2.drawImage(oakPlatform, 575, 160, 100, 15, this);
 			g2.drawImage(oakPlatform, 550, 75, 150, 15, this);
 
+			//draw player Rectangle and player icon overlayed on player
 			g2.draw(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 		}
+		//draw Level 2 walls and ramps and graphics
 		else if (level == 3) {
 			for (int i = 0; i < walls.length; i++)
 				g2.fill(walls[i]);
@@ -518,6 +526,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			g2.draw(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 		}
+		//draw Level 3 walls and ramps and graphics
 		else if (level == 4) {
 			for (int i = 0; i < walls.length; i++)
 				g2.fill(walls[i]);
@@ -550,13 +559,13 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			g2.fill(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 		}
+		//draw player wearing crown image
 		else if (level == 5) {
 			g2.setColor(Color.GRAY);
 			for (int i = 0; i < walls.length; i++)
 				g2.fill(walls[i]);
 			for (int i = 0; i < rightramps.length; i++)
 				g2.fill(rightramps[i]);
-			//			g2.drawImage(door, 590, 6, 70, 70, this);
 			g2.fill(player);
 			g2.drawImage(playerIcon, player.x, player.y, 30, 30, this);
 			g2.drawImage(crown, player.x-5, player.y-24, 40, 28, this);
@@ -596,6 +605,11 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			jump = false;
 	}
 
+	/**
+	 * Description: Moves the player using keyPressed and keyReleased info.
+	 * Parameters: N/A
+	 * @return N/A
+	 */
 	void move() {
 		if (left)
 			xVel = -speed;
@@ -621,6 +635,11 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		player.y -= yVel;
 	}
 
+	/**
+	 * Description: Checks player position and keeps it in the window.
+	 * Parameters: N/A
+	 * @return N/A
+	 */
 	void keepInBound() {
 		if (player.x < 0)
 			player.x = 0;
@@ -638,9 +657,14 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		}
 	}
 
+	/**
+	 * Description: Checks player and rectangle wall position for intersection and prevents player from moving further into walls.
+	 * @param
+	 * @return N/A
+	 */
 	void checkCollision(Rectangle wall) {
 		if (player.intersects(wall)) {
-			//System.out.println("collision");
+			//define double variables with player and wall vertex coordinates
 			double left1 = player.getX();
 			double right1 = player.getX() + player.getWidth();
 			double top1 = player.getY();
@@ -650,33 +674,38 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			double top2 = wall.getY();
 			double bottom2 = wall.getY() + wall.getHeight();
 
-
+			//check for and correct player collision with wall from left side
 			if (right1 > left2 && left1 < left2 && right1 - left2 <= 5) {
 				player.x = wall.x - player.width;
 				airborne = true;
-				//				System.out.println("left");
 			}
+			//check for and correct player collision with wall from right side
 			else if (left1 < right2 && right1 > right2 && right2 - left1 <= 5) {
 				player.x = wall.x + wall.width;
 				airborne = true;
-				//				System.out.println("right");
 			}
+			//check for and correct player collision with wall from top side
 			else if (bottom1 > top2 && top1 < top2) {
 				player.y = wall.y - player.height;
 				airborne = false;
-				//				System.out.println("top");
 			}
+			//check for and correct player collision with wall from bottom side
 			else if (top1 < bottom2 && bottom1 > bottom2) {
 				player.y = wall.y + wall.height;
 				airborne = true;
 				yVel/=3;
-				//				System.out.println("bottom");
 			}
 		}
 	}
 
-	void checkSliderleft (Polygon ramps) {
-		Rectangle hitbox=ramps.getBoundingBox();
+	/**
+	 * Description: Checks player and Polygon ramp position for intersection, prevents player from moving further into walls and makes player slide left down the ramp.
+	 * @param
+	 * @return N/A
+	 */
+	void checkSliderLeft (Polygon ramps) {
+		Rectangle hitbox = ramps.getBoundingBox();
+		//define int and double variables with player and ramp vertex coordinates
 		int botleftcorny=(int) (hitbox.getY()+hitbox.height);
 		int botleftcornx=(int) hitbox.getX();
 
@@ -689,25 +718,32 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		double top2 = hitbox.getY();
 		double bottom2 = hitbox.getY() + hitbox.getHeight();
 
+		//check for and correct player collision with ramp from right side
 		if (player.intersects(hitbox) && left1 < right2 && right1 > right2 && right2 - left1 <= 5) {
 			player.x = hitbox.x + hitbox.width;
 			airborne = true;
-			//				System.out.println("right");
 		}
+		//check for and correct player collision with ramp from bottom side
 		else if (player.intersects(hitbox) && top1 < bottom2 && bottom1 > bottom2) {
 			player.y = hitbox.y + hitbox.height;
 			airborne = true;
 			yVel/=3;
-			//				System.out.println("bottom");
 		}
+		//check for player collision with ramp from sliding side and force player to slide down ramp
 		else if (ramps.intersects(player.x, player.y, player.width, player.height)) {
 			yVel=-3;
 			player.x = (botleftcorny - player.y) + (botleftcornx - player.width - 31);
 		}
 	}
-
-	void checkSliderright (Polygon ramps) {
+	
+	/**
+	 * Description: Checks player and Polygon ramp position for intersection, prevents player from moving further into walls and makes player slide right down the ramp.
+	 * @param
+	 * @return N/A
+	 */
+	void checkSliderRight (Polygon ramps) {
 		Rectangle hitbox=ramps.getBoundingBox();
+		//define int and double variables with player and ramp vertex coordinates
 		int botleftcorny=(int) (hitbox.getY()+hitbox.height);
 		int botleftcornx=(int) hitbox.getX();
 
@@ -720,25 +756,31 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 		double top2 = hitbox.getY();
 		double bottom2 = hitbox.getY() + hitbox.getHeight();
 
+		//check for and correct player collision with ramp from left side
 		if (player.intersects(hitbox) && right1 > left2 && left1 < left2 && right1 - left2 <= 5) {
 			player.x = hitbox.x + hitbox.width;
 			airborne = true;
-			//				System.out.println("left");
 		}
+		//check for and correct player collision with ramp from bottom side
 		else if (player.intersects(hitbox) && top1 < bottom2 && bottom1 > bottom2) {
 			player.y = hitbox.y + hitbox.height;
 			airborne = true;
 			yVel/=3;
-			//				System.out.println("bottom");
 		}
+		//check for player collision with ramp from sliding side and force player to slide down ramp
 		else if (ramps.intersects(player.x, player.y, player.width, player.height)) {
 			yVel=-3;
 			player.x = (hitbox.width-(botleftcorny - player.y))+(botleftcornx+31);
 		}
 	}
 
-
+	/**
+	 * Description: Checks if player is in winning conditions using current player coordinates and advances levels if so.
+	 * Parameters: N/A
+	 * @return N/A
+	 */
 	public void winner () {
+		//advance player from Level 1 to Level 2 if player is in front of portal's coordinates, reset player position to bottom left corner
 		if (level == 2) {
 			if (player.x >= 594 && player.x <= 626 && player.y >= 0 && player.y <= 45 && win == true) {
 				level++;
@@ -748,6 +790,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 				airborne = true;
 			}
 		}
+		//advance player from Level 2 to Level 3 and Level 3 to win screen if player is in front of portal's coordinates, reset player position to bottom left corner
 		else if (level == 3 || level == 4) {
 			if (player.x >= 590 && player.x <= 635 && player.y >= 0 && player.y <= 45 && win == true) {
 				level++;
