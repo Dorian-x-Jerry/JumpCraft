@@ -43,6 +43,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	int mousehoverx = 0;
 	int mousehovery = 0;
 	int level = 0;
+	boolean flag=true;
 	boolean airborne = true;
 
 	//defining and starting the thread
@@ -184,6 +185,12 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			}
 			//run Level 1 by calling other methods and repainting
 			else if (level==2){
+				if (flag && mouseclickx > 595 && mouseclickx < 655 && mouseclicky > 0 && mouseclicky < 70
+						&& mouseclickreleasex > 595 && mouseclickreleasex < 655 && mouseclickreleasey > 0 && mouseclickreleasey < 70) {
+					mouseclickx=0; mouseclicky=0; mouseclickreleasex=0; mouseclickreleasey=0;
+					System.out.println("Hi, Ms. Wong :)\n\nWe just wanted to thank you for teaching us computer science this\nsemester, and always putting up with our 12 am emails.\nWe really really appreciate all that you have done for us throughout the entire year:\nrunning the competitions, extra help sessions, clubs, and more!!\nAs a thank you, we have also activated a cheat that makes the game a little easier.\nGood Luck!");
+					gravity=0.2;
+				}
 				initialize();
 				move();
 				for (int i = 0; i < walls.length; i++)
