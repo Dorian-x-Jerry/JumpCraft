@@ -25,7 +25,7 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 	Polygon[] leftramps = new Polygon[5];
 	Image[] backgrounds = new Image[6];
 	Image[] buttons = new Image[5];
-	Image[] skins = new Image[6];
+	Image[] skins = new Image[8];
 	Image playerIcon = Toolkit.getDefaultToolkit().getImage("playerIcon0.gif");
 	Image netherPortal, oakPlatform, oakFence, netherBrick, netherBrickSlab, netherBrickTall, netherBrickShort, netherBrickLong, netherBrickFence,
 	rampLeft, rampLeftSmall, rampRightSmall, endPortal, enderman, endermanSide, endermanLong, endermanSideLong, endermanRamp, crown;
@@ -165,6 +165,18 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 				else if (mouseclickx > 500 && mouseclickx < 600 && mouseclicky > 700 && mouseclicky < 800
 						&& mouseclickreleasex > 500 && mouseclickreleasex < 600 && mouseclickreleasey > 700 && mouseclickreleasey < 800) {
 					playerIcon = skins[5];
+					mouseclickx=0; mouseclicky=0; mouseclickreleasex=0; mouseclickreleasey=0;
+					level--;
+				}
+				else if (mouseclickx > 180 && mouseclickx < 280 && mouseclicky > 250 && mouseclicky < 350
+						&& mouseclickreleasex > 180 && mouseclickreleasex < 280 && mouseclickreleasey > 250 && mouseclickreleasey < 350) {
+					playerIcon = skins[6];
+					mouseclickx=0; mouseclicky=0; mouseclickreleasex=0; mouseclickreleasey=0;
+					level--;
+				}
+				else if (mouseclickx > 420 && mouseclickx < 520 && mouseclicky > 250 && mouseclicky < 350
+						&& mouseclickreleasex > 420 && mouseclickreleasex < 520 && mouseclickreleasey > 250 && mouseclickreleasey < 350) {
+					playerIcon = skins[7];
 					mouseclickx=0; mouseclicky=0; mouseclickreleasex=0; mouseclickreleasey=0;
 					level--;
 				}
@@ -437,6 +449,8 @@ public class slimeDude extends JPanel implements Runnable, KeyListener, MouseLis
 			g2.drawImage(skins[3], 100, 700, 100, 100, this);
 			g2.drawImage(skins[4], 300, 700, 100, 100, this);
 			g2.drawImage(skins[5], 500, 700, 100, 100, this);
+			g2.drawImage(skins[6], 180, 250, 100, 100, this);
+			g2.drawImage(skins[7], 420, 250, 100, 100, this);
 		}
 		//draw Level 1 walls + graphics overlayed on the walls
 		else if (level == 2) {
